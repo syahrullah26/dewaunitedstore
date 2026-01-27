@@ -1,0 +1,208 @@
+.fan-image {
+  z-index:1;
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  left: auto;
+  width: 22%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.aos-animate.fan-image {
+  opacity: 1;
+  animation-duration: 3.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aos-animate.fan-left {
+  animation-name: fanLeft;
+}
+
+.aos-animate.fan-center {
+  animation-name: fanCenter;
+}
+
+.aos-animate.fan-right {
+  animation-name: fanRight;
+}
+@keyframes fanLeft {
+  0% {
+    transform: translate(-50%, -50%) translateX(-500px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-12deg) translateX(-180px);
+  }
+}
+
+@keyframes fanCenter {
+  0% {
+    transform: translate(-50%, -50%) translateY(400px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fanRight {
+  0% {
+    transform: translate(-50%, -50%) translateX(500px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(12deg) translateX(180px);
+  }
+}
+
+.fan-text {
+  font-family: "Merienda", cursive;
+  z-index:10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 1.2rem;
+  font-style: italic, bold;
+  color: white;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.fan-text-left {
+  transform: translate(-50%, -50%) rotate(-12deg) translateX(-400px);
+}
+
+.fan-text-right {
+  transform: translate(-50%, -50%) rotate(12deg) translateX(400px);
+}
+.fan-text-bottom {
+  top: calc(50% + 220px);
+}
+
+.aos-animate .fan-text {
+  animation: fanTextReveal 0.6s ease-out forwards;
+  animation-delay: 3.8s;
+}
+
+@keyframes fanTextReveal {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.fan-text-inner {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fanTextReveal 0.6s ease-out forwards;
+  animation-delay: 3.8s;
+}
+
+@keyframes fanTextReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.aos-animate .fan-text-inner {
+  animation: fanTextReveal 0.6s ease-out forwards;
+  animation-delay: 3.8s;
+}
+
+@media (max-width: 768px) {
+  .aos-animate.fan-mobile.fan-left {
+    animation-name: fanLeftMobile;
+  }
+
+  .aos-animate.fan-mobile.fan-center {
+    animation-name: fanCenterMobile;
+  }
+
+  .aos-animate.fan-mobile.fan-right {
+    animation-name: fanRightMobile;
+  }
+
+  .fan-mobile {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    width: 30%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fanLeftMobile {
+  0% {
+    transform: translate(-50%, -50%) translateX(-120px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-10deg) translateX(-70px);
+  }
+}
+
+@keyframes fanCenterMobile {
+  0% {
+    transform: translate(-50%, -50%) translateY(120px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fanRightMobile {
+  0% {
+    transform: translate(-50%, -50%) translateX(120px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(10deg) translateX(70px);
+  }
+}
