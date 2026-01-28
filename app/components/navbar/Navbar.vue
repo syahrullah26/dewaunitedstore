@@ -84,6 +84,12 @@ const closeDropdown = (e: MouseEvent) => {
         >
           Products
         </NuxtLink>
+        <NuxtLink
+          to="/marketing"
+          class="px-3 py-2 text-sm font-medium text-white rounded-md transition hover:bg-white/5 hover:text-[var(--gold-main)]"
+        >
+          Marketing
+        </NuxtLink>
 
         <!-- Login Check -->
         <div v-if="auth.isLoggedIn" ref="userRef" class="relative">
@@ -226,6 +232,12 @@ const closeDropdown = (e: MouseEvent) => {
           class="block px-3 py-2 text-sm font-medium text-white rounded-md transition hover:bg-white/5 hover:text-[var(--gold-main)]"
         >
           Products
+        </NuxtLink>
+        <NuxtLink
+          to="/marketing"
+          class="px-3 py-2 text-sm font-medium text-white rounded-md transition hover:bg-white/5 hover:text-[var(--gold-main)]"
+        >
+          Marketing
         </NuxtLink>
 
         <NuxtLink
