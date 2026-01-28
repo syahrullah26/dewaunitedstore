@@ -75,9 +75,9 @@ const solutions = [
 
         <div class="mt-10 flex flex-col sm:flex-row gap-4">
           <!-- PRIMARY CTA -->
-          <NuxtLink to="/contact" class="btn-gold text-center">
+          <a href="#contact" class="btn-gold text-center">
             Get Marketing Proposal
-          </NuxtLink>
+          </a>
 
           <!-- SCROLL CTA -->
           <a href="#solutions" class="btn-outline text-center">
