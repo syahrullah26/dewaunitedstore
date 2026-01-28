@@ -34,6 +34,19 @@ const badgeColor = (category: string) => {
       return "bg-white/10 text-white border-white/20";
   }
 };
+
+const fullCategory = (category: string) => {
+  switch (category) {
+    case "fc":
+      return "Football Club";
+    case "bc":
+      return "Basketball Club";
+    case "esports":
+      return "Esports";
+    case "holding":
+      return "Holding";
+  }
+};
 </script>
 
 <template>
@@ -129,7 +142,7 @@ const badgeColor = (category: string) => {
               class="absolute bottom-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
               :class="badgeColor(selectedActivation.category)"
             >
-              {{ selectedActivation.category }}
+              {{ fullCategory(selectedActivation.category) }}
             </span>
           </div>
 
