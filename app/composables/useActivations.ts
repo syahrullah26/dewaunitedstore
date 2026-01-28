@@ -1,8 +1,10 @@
 import type { Activation } from "~/types/activations";
 
-interface PaginatedResponse<T> {
-  data: T[];
+interface Pagination<T> {
   current_page: number;
+  data: T[];
+  total: number;
+  per_page: number;
   last_page: number;
 }
 interface ApiResponse<T> {
@@ -30,21 +32,15 @@ export const useActivation = (slug: string) => {
 export const useActivations = (category?: string) => {
   const config = useRuntimeConfig();
 
-  const { data, pending, error, refresh } = useFetch<ApiResponse<Activation[]>>(
-    () => `${config.public.apiBase}/activations`,
-    {
-      query: category ? { category } : undefined,
-      transform: (res) => {
-        return {
-          status: res?.status ?? true,
-          data: Array.isArray(res?.data) ? res.data : [],
-        };
-      },
-    },
-  );
+  const { data, pending, error, refresh } = useFetch<
+    ApiResponse<Pagination<Activation>>
+  >(() => `${config.public.apiBase}/activations`, {
+    query: category ? { category } : undefined,
+  });
 
+  // ⬇️ AMBIL DATA YANG BENAR
   const activations = computed<Activation[]>(() => {
-    return data.value?.data ?? [];
+    return data.value?.data.data ?? [];
   });
 
   return {
