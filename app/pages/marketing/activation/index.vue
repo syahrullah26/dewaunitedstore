@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, nextTick } from "vue";
+import { initCarousels } from "flowbite";
 import { useActivations } from "~/composables/useActivations";
 import type { Activation } from "~/types/activations";
 
 const activeCategory = ref<string | undefined>(undefined);
-
 const { activations, pending } = useActivations(activeCategory.value);
+
+const selectedActivation = ref<Activation | null>(null);
 
 watch(activeCategory, () => {
   selectedActivation.value = null;
 });
 
-const selectedActivation = ref<Activation | null>(null);
-
-const openModal = (item: Activation) => {
+const openModal = async (item: Activation) => {
   selectedActivation.value = item;
+
+  // tunggu DOM modal & carousel render
+  await nextTick();
+  initCarousels();
 };
 
 const closeModal = () => {
@@ -56,14 +60,28 @@ const fullCategory = (category: string) => {
   <section class="min-h-screen bg-black text-white">
     <!-- HEADER -->
     <div class="max-w-7xl mx-auto px-6 py-20">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">Activations Highlight</h1>
-      <p class="text-gray-400 max-w-2xl">
+      <h1
+        class="text-4xl md:text-5xl font-bold mb-4"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
+        Activations Highlight
+      </h1>
+      <p
+        class="text-gray-400 max-w-2xl"
+        data-aos="fade-right"
+        data-aos-delay="500"
+      >
         Highlight activation Dewa United Indonesia dalam membangun brand,
         komunitas, dan engagement lintas platform.
       </p>
 
       <!-- FILTER -->
-      <div class="flex gap-3 mt-8 flex-wrap">
+      <div
+        class="flex gap-3 mt-8 flex-wrap"
+        data-aos="slide-right"
+        data-aos-delay="300"
+      >
         <button
           @click="activeCategory = undefined"
           class="px-4 py-2 rounded-full border border-white/20 text-sm hover:border-[var(--gold-main)]"
@@ -98,8 +116,10 @@ const fullCategory = (category: string) => {
     <!-- GRID -->
     <div v-else class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
       <article
-        v-for="item in activations"
+        v-for="(item, index) in activations"
         :key="item.id"
+        data-aos="fade-up"
+        :data-aos-delay="700 + index * 100"
         class="group rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 hover:border-[var(--gold-main)]/40 transition"
       >
         <div class="relative h-56 overflow-hidden">
@@ -148,39 +168,59 @@ const fullCategory = (category: string) => {
     >
       <div
         v-if="selectedActivation"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6"
         @click.self="closeModal"
       >
         <div
           class="max-w-3xl w-full bg-zinc-900 rounded-2xl overflow-hidden border border-white/10"
         >
-          <div class="relative h-64">
-            <img
-              :src="selectedActivation.cover_image"
-              class="w-full h-full object-cover"
-            />
+          <!-- CAROUSEL -->
+          <div class="relative w-full" data-carousel="static">
+            <div class="relative h-64 overflow-hidden">
+              <div
+                v-for="(image, index) in selectedActivation.gallery_images"
+                :key="index"
+                class="hidden duration-700 ease-in-out"
+                :data-carousel-item="index === 0 ? 'active' : null"
+              >
+                <img
+                  :src="image"
+                  class="absolute block w-full h-full object-cover"
+                />
 
+                <span
+                  class="absolute bottom-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
+                  :class="badgeColor(selectedActivation.category)"
+                >
+                  {{ fullCategory(selectedActivation.category) }}
+                </span>
+              </div>
+            </div>
+
+            <!-- CONTROLS -->
             <button
-              @click="closeModal"
-              class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black transition"
+              type="button"
+              class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4"
+              data-carousel-prev
             >
-              ✕
+              ‹
             </button>
-
-            <span
-              class="absolute bottom-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
-              :class="badgeColor(selectedActivation.category)"
+            <button
+              type="button"
+              class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4"
+              data-carousel-next
             >
-              {{ fullCategory(selectedActivation.category) }}
-            </span>
+              ›
+            </button>
           </div>
 
+          <!-- CONTENT -->
           <div class="p-8">
             <h2 class="text-2xl font-bold mb-4">
               {{ selectedActivation.title }}
             </h2>
 
-            <p class="text-gray-400 leading-relaxed whitespace-pre-line">
+            <p class="text-gray-400 whitespace-pre-line">
               {{ selectedActivation.content }}
             </p>
           </div>

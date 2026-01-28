@@ -37,8 +37,6 @@ export const useActivations = (category?: string) => {
   >(() => `${config.public.apiBase}/activations`, {
     query: category ? { category } : undefined,
   });
-
-  // ⬇️ AMBIL DATA YANG BENAR
   const activations = computed<Activation[]>(() => {
     return data.value?.data.data ?? [];
   });
