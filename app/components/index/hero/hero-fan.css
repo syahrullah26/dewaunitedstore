@@ -1,5 +1,5 @@
 .fan-image {
-  z-index:1;
+  z-index: 1;
   position: absolute;
   top: 50%;
   right: 8%;
@@ -9,6 +9,25 @@
   object-fit: cover;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.95);
+}
+.global-image {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  left: auto;
+  width: 22%;
+  aspect-ratio: 7 / 5;
+  object-fit: content;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.aos-animate.global-image {
+  opacity: 1;
+  animation-duration: 3.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aos-animate.fan-image {
@@ -79,7 +98,7 @@
 
 .fan-text {
   font-family: "Merienda", cursive;
-  z-index:10;
+  z-index: 10;
   position: absolute;
   top: 50%;
   left: 50%;
