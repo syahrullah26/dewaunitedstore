@@ -27,19 +27,23 @@ export const useActivation = (slug: string) => {
   };
 };
 
-export const useActivations = (category?: string) => {
+export const useActivations = (category?: Ref<string | null>) => {
   const config = useRuntimeConfig();
 
-  const { data, pending, error, refresh } = useFetch<
-    ApiResponse<PaginatedResponse<Activation>>
-  >(`${config.public.apiBase}/activations`, {
-    key: `activations-${category ?? "all"}`,
-    query: category ? { category } : {},
-  });
+  const { data, pending, error, refresh } = useFetch<ApiResponse<Activation[]>>(
+    () => {
+      const params = category?.value ? `?category=${category.value}` : "";
+      return `${config.public.apiBase}/activations${params}`;
+    },
+    {
+      watch: category ? [category] : undefined,
+    },
+  );
+
+  const activations = computed(() => data.value?.data ?? []);
 
   return {
-    activations: computed(() => data.value?.data.data ?? []),
-    pagination: computed(() => data.value?.data ?? null),
+    activations,
     pending,
     error,
     refresh,
