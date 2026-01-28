@@ -133,10 +133,10 @@ const solutions = [
     class="scroll-mt-24 bg-black py-24 px-6 sm:px-10 md:px-20"
   >
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold">
+      <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-left" data-aos-delay="300">
         Integrated Marketing Solutions
       </h2>
-      <p class="mt-4 text-neutral-400 max-w-2xl mx-auto">
+      <p class="mt-4 text-neutral-400 max-w-2xl mx-auto" data-aos="fade-right" data-aos-delay="500">
         A full spectrum of strategic marketing solutions to support your brand’s
         growth.
       </p>
