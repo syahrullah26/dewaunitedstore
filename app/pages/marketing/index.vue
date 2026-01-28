@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: "Marketing Dewa United",
+  description:
+    "Dewa United offers comprehensive marketing solutions designed to elevate your brand and drive measurable results.",
+});
 const solutions = [
   {
     title: "Brand Partnership",
@@ -90,17 +95,35 @@ const solutions = [
 
   <!-- ================= TRUST ================= -->
   <section class="bg-black py-24 px-6 sm:px-10 md:px-20 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold">Trusted by Brands & Partners</h2>
-    <p class="mt-4 text-neutral-400 max-w-2xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-right">
+      Trusted by Brands & Partners
+    </h2>
+    <p class="mt-4 text-neutral-400 max-w-2xl mx-auto" data-aos="fade-left">
       We collaborate with brands, partners, and communities to deliver impactful
       marketing campaigns.
     </p>
 
     <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 opacity-60">
-      <div class="h-16 bg-white/10 rounded-xl" />
-      <div class="h-16 bg-white/10 rounded-xl" />
-      <div class="h-16 bg-white/10 rounded-xl" />
-      <div class="h-16 bg-white/10 rounded-xl" />
+      <div
+        class="h-16 bg-white/10 rounded-xl"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      />
+      <div
+        class="h-16 bg-white/10 rounded-xl"
+        data-aos="fade-up"
+        data-aos-delay="600"
+      />
+      <div
+        class="h-16 bg-white/10 rounded-xl"
+        data-aos="fade-up"
+        data-aos-delay="700"
+      />
+      <div
+        class="h-16 bg-white/10 rounded-xl"
+        data-aos="fade-up"
+        data-aos-delay="800"
+      />
     </div>
   </section>
 
@@ -121,8 +144,10 @@ const solutions = [
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <div
-        v-for="item in solutions"
+        v-for="item,index in solutions"
         :key="item.title"
+        data-aos="fade-up"
+        :data-aos-delay="index*200"
         class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-[var(--gold-main)]/40 transition"
       >
         <h3 class="text-xl font-semibold mb-3">
@@ -141,16 +166,16 @@ const solutions = [
   >
     <div class="grid md:grid-cols-2 gap-16 items-center">
       <div>
-        <h2 class="text-3xl md:text-4xl font-bold">
+        <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up" data-aos-delay="300">
           Why Brands Choose Dewa United
         </h2>
-        <p class="mt-4 text-neutral-400">
+        <p class="mt-4 text-neutral-400" data-aos="fade-up" data-aos-delay="500">
           We combine strategic thinking, strong brand assets, and professional
           execution.
         </p>
       </div>
 
-      <ul class="space-y-4 text-neutral-200">
+      <ul class="space-y-4 text-neutral-200" data-aos="fade-up" data-aos-delay="700">
         <li class="flex items-center gap-3">
           <span class="w-2 h-2 rounded-full bg-[var(--gold-main)]" />
           Strong National Brand Presence
@@ -181,13 +206,13 @@ const solutions = [
   >
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-16">
-        <span class="badge-gold">CONTACT US</span>
+        <span class="badge-gold" data-aos="fade-up">CONTACT US</span>
 
-        <h2 class="mt-6 text-3xl md:text-4xl font-bold">
+        <h2 class="mt-6 text-3xl md:text-4xl font-bold" data-aos="fade-left" data-aos-delay="300">
           Let’s Build Something Powerful Together
         </h2>
 
-        <p class="mt-4 text-neutral-400 max-w-2xl mx-auto font-default">
+        <p class="mt-4 text-neutral-400 max-w-2xl mx-auto font-default" data-aos="fade-right" data-aos-delay="500">
           Reach out to our marketing team to explore partnership opportunities,
           campaign collaboration, and strategic solutions.
         </p>
@@ -195,7 +220,7 @@ const solutions = [
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- EMAIL -->
-        <div class="card-gold flex flex-col items-center text-center gap-4">
+        <div class="card-gold flex flex-col items-center text-center gap-4" data-aos="fade-up" data-aos-delay="700">
           <div
             class="w-14 h-14 rounded-full bg-[rgba(225,182,98,0.15)] flex items-center justify-center"
           >
@@ -217,7 +242,7 @@ const solutions = [
         </div>
 
         <!-- PHONE -->
-        <div class="card-gold flex flex-col items-center text-center gap-4">
+        <div class="card-gold flex flex-col items-center text-center gap-4" data-aos="fade-up" data-aos-delay="900">
           <div
             class="w-14 h-14 rounded-full bg-[rgba(225,182,98,0.15)] flex items-center justify-center"
           >
