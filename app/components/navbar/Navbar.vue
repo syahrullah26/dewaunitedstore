@@ -84,12 +84,29 @@ const closeDropdown = (e: MouseEvent) => {
         >
           Products
         </NuxtLink>
-        <NuxtLink
-          to="/marketing"
-          class="px-3 py-2 text-sm font-medium text-white rounded-md transition hover:bg-white/5 hover:text-[var(--gold-main)]"
-        >
-          Marketing
-        </NuxtLink>
+        <div class="relative group">
+          <NuxtLink
+            to="/marketing"
+            class="px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-white/5 hover:text-[var(--gold-main)]"
+          >
+            Marketing
+          </NuxtLink>
+
+          <div
+            class="absolute left-0 mt-2 w-48 rounded-xl bg-black/90 border border-white/10 shadow-xl opacity-0 invisible translate-y-2 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-y-0"
+          >
+            <NuxtLink
+              to="/marketing"
+              class="block px-4 py-2 text-sm text-white hover:bg-white/10"
+              >Services</NuxtLink
+            >
+            <NuxtLink
+              to="/marketing/activation"
+              class="block px-4 py-2 text-sm text-white hover:bg-white/10"
+              >activations</NuxtLink
+            >
+          </div>
+        </div>
 
         <!-- Login Check -->
         <div v-if="auth.isLoggedIn" ref="userRef" class="relative">
@@ -232,12 +249,6 @@ const closeDropdown = (e: MouseEvent) => {
           class="block px-3 py-2 text-sm font-medium text-white rounded-md transition hover:bg-white/5 hover:text-[var(--gold-main)]"
         >
           Products
-        </NuxtLink>
-        <NuxtLink
-          to="/marketing"
-          class="px-3 py-2 text-sm font-medium text-white rounded-md transition hover:bg-white/5 hover:text-[var(--gold-main)]"
-        >
-          Marketing
         </NuxtLink>
 
         <NuxtLink

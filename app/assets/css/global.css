@@ -239,6 +239,16 @@
   .animate-fade-right {
     animation: fadeRight 0.9s ease-out forwards;
   }
+  .animate-smooth-float {
+    animation: smoothFloat 6s ease-in-out infinite;
+  }
+
+  @media (max-width: 768px) {
+    .animate-smooth-float {
+      animation-duration: 8s;
+      transform: translateZ(0);
+    }
+  }
 }
 
 /* =========================
@@ -274,5 +284,14 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+@keyframes smoothFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
   }
 }

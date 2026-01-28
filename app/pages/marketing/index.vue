@@ -51,7 +51,7 @@ const solutions = [
       <img
         src="/du-universal.png"
         data-aos="fade"
-        class="global-image fan-center fan-mobile rounded-xl"
+        class="global-image fan-center fan-mobile rounded-xl animate-smooth-float"
       />
     </div>
 
@@ -265,9 +265,9 @@ const solutions = [
       </div>
 
       <!-- CTA -->
-      <div class="mt-20 text-center">
-        <NuxtLink to="mailto:marketing@dewaunited.com" class="btn-gold">
-          Request Marketing Proposal
+      <div class="mt-20 text-center" data-aos="fade-up" data-aos-delay="1100">
+        <NuxtLink to="/marketing/activation" class="btn-gold">
+          Activations Portfolio
         </NuxtLink>
       </div>
     </div>
