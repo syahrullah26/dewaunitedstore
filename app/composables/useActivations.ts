@@ -27,20 +27,25 @@ export const useActivation = (slug: string) => {
   };
 };
 
-export const useActivations = (category?: Ref<string | null>) => {
+export const useActivations = (category?: string) => {
   const config = useRuntimeConfig();
 
   const { data, pending, error, refresh } = useFetch<ApiResponse<Activation[]>>(
-    () => {
-      const params = category?.value ? `?category=${category.value}` : "";
-      return `${config.public.apiBase}/activations${params}`;
-    },
+    () => `${config.public.apiBase}/activations`,
     {
-      watch: category ? [category] : undefined,
+      query: category ? { category } : undefined,
+      transform: (res) => {
+        return {
+          status: res?.status ?? true,
+          data: Array.isArray(res?.data) ? res.data : [],
+        };
+      },
     },
   );
 
-  const activations = computed(() => data.value?.data ?? []);
+  const activations = computed<Activation[]>(() => {
+    return data.value?.data ?? [];
+  });
 
   return {
     activations,

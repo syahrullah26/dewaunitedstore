@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useActivations } from "~/composables/useActivations";
 import type { Activation } from "~/types/activations";
 
-const activeCategory = ref<string | null>(null);
+const activeCategory = ref<string | undefined>(undefined);
 
-const { activations, pending } = useActivations(activeCategory);
+const { activations, pending } = useActivations(activeCategory.value);
+
+watch(activeCategory, () => {
+  selectedActivation.value = null;
+});
 
 const selectedActivation = ref<Activation | null>(null);
 
@@ -16,14 +20,6 @@ const openModal = (item: Activation) => {
 const closeModal = () => {
   selectedActivation.value = null;
 };
-
-const categories = [
-  { key: null, label: "ALL" },
-  { key: "holding", label: "HOLDING" },
-  { key: "esports", label: "ESPORTS" },
-  { key: "fc", label: "FOOTBALL CLUB" },
-  { key: "bc", label: "BASKETBALL CLUB" },
-];
 
 const badgeColor = (category: string) => {
   switch (category) {
@@ -61,25 +57,27 @@ const fullCategory = (category: string) => {
     <!-- HEADER -->
     <div class="max-w-7xl mx-auto px-6 py-20">
       <h1 class="text-4xl md:text-5xl font-bold mb-4">Activations Highlight</h1>
-      <p class="text-gray-400 max-w-2xl mb-8">
+      <p class="text-gray-400 max-w-2xl">
         Highlight activation Dewa United Indonesia dalam membangun brand,
         komunitas, dan engagement lintas platform.
       </p>
 
       <!-- FILTER -->
-      <div class="flex flex-wrap gap-3">
+      <div class="flex gap-3 mt-8 flex-wrap">
         <button
-          v-for="c in categories"
-          :key="c.label"
-          @click="activeCategory = c.key"
-          class="px-4 py-2 rounded-full border text-sm transition"
-          :class="
-            activeCategory === c.key
-              ? 'border-[var(--gold-main)] text-[var(--gold-main)] bg-[var(--gold-main)]/10'
-              : 'border-white/20 hover:border-[var(--gold-main)]'
-          "
+          @click="activeCategory = undefined"
+          class="px-4 py-2 rounded-full border border-white/20 text-sm hover:border-[var(--gold-main)]"
         >
-          {{ c.label }}
+          ALL
+        </button>
+
+        <button
+          v-for="c in ['holding', 'esports', 'fc', 'bc']"
+          :key="c"
+          @click="activeCategory = c"
+          class="px-4 py-2 rounded-full border border-white/20 text-sm hover:border-[var(--gold-main)]"
+        >
+          {{ c.toUpperCase() }}
         </button>
       </div>
     </div>
@@ -89,7 +87,15 @@ const fullCategory = (category: string) => {
       Loading activations...
     </div>
 
-    <!-- LIST -->
+    <!-- EMPTY -->
+    <div
+      v-else-if="!activations.length"
+      class="text-center text-gray-500 py-20"
+    >
+      No activations found.
+    </div>
+
+    <!-- GRID -->
     <div v-else class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
       <article
         v-for="item in activations"
@@ -101,6 +107,7 @@ const fullCategory = (category: string) => {
             :src="item.cover_image"
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
+
           <span
             class="absolute top-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
             :class="badgeColor(item.category)"
@@ -152,12 +159,14 @@ const fullCategory = (category: string) => {
               :src="selectedActivation.cover_image"
               class="w-full h-full object-cover"
             />
+
             <button
               @click="closeModal"
               class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black transition"
             >
               ✕
             </button>
+
             <span
               class="absolute bottom-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
               :class="badgeColor(selectedActivation.category)"
@@ -170,7 +179,8 @@ const fullCategory = (category: string) => {
             <h2 class="text-2xl font-bold mb-4">
               {{ selectedActivation.title }}
             </h2>
-            <p class="text-gray-400 leading-relaxed">
+
+            <p class="text-gray-400 leading-relaxed whitespace-pre-line">
               {{ selectedActivation.content }}
             </p>
           </div>
