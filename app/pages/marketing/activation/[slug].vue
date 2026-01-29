@@ -43,6 +43,31 @@ const fullCategory = (category: string) => {
       return category;
   }
 };
+const formatDate = (dateStr?: string) => {
+  if (!dateStr) return "-";
+
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return "-";
+
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+
+  return date.toLocaleDateString("id-ID", options);
+};
+
+useSeoMeta({
+  title:
+    activations.value?.find((a) => a.slug === slug.value)?.title ||
+    "Activation Details",
+  description:
+    "Dewa United Indonesia" +
+    activations.value?.find((a) => a.slug == slug.value)?.title +
+    "Activations Highlight",
+});
 </script>
 
 <template>
@@ -77,8 +102,8 @@ const fullCategory = (category: string) => {
         <div class="text-sm text-gray-400 flex flex-wrap gap-4">
           <span>📍 {{ selectedActivation?.location }}</span>
           <span
-            >🗓 {{ selectedActivation?.start_date }} –
-            {{ selectedActivation?.end_date }}</span
+            >🗓 {{ formatDate(selectedActivation?.start_date) }} –
+            {{ formatDate(selectedActivation?.end_date) }}</span
           >
         </div>
       </header>

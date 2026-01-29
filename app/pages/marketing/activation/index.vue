@@ -53,11 +53,30 @@ const fullCategory = (category: string) => {
       return category;
   }
 };
+const formatDate = (dateStr?: string) => {
+  if (!dateStr) return "-";
+
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return "-";
+
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+
+  return date.toLocaleDateString("id-ID", options);
+};
+
+useSeoMeta({
+  title: "Activations",
+  description: "Dewa United Indonesia Activations Highlight",
+});
 </script>
 
 <template>
   <section class="min-h-screen bg-black text-white">
-    <!-- HEADER -->
     <div class="max-w-7xl mx-auto px-6 py-20">
       <h1
         class="text-4xl md:text-5xl font-bold mb-4"
@@ -74,8 +93,6 @@ const fullCategory = (category: string) => {
         Highlight activation Dewa United Indonesia dalam membangun brand,
         komunitas, dan engagement lintas platform.
       </p>
-
-      <!-- FILTER -->
       <div
         class="flex gap-3 mt-8 flex-wrap"
         data-aos="slide-right"
@@ -98,28 +115,22 @@ const fullCategory = (category: string) => {
         </button>
       </div>
     </div>
-
-    <!-- LOADING -->
     <div v-if="pending" class="text-center text-gray-400 py-20">
       Loading activations...
     </div>
-
-    <!-- EMPTY -->
     <div
       v-else-if="!activations.length"
       class="text-center text-gray-500 py-20"
     >
       No activations found.
     </div>
-
-    <!-- GRID -->
     <div v-else class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
       <article
         v-for="(item, index) in activations"
         :key="item.id"
         data-aos="fade-up"
         :data-aos-delay="700 + index * 100"
-        class="group rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 hover:border-[var(--gold-main)]/40 transition"
+        class="group rounded-2xl overflow-hidden bg-zinc-900 border border-white/30 hover:border-[var(--gold-main)] transition"
       >
         <NuxtLink :to="`/marketing/activation/${item.slug}`" class="block">
           <div class="relative h-56 overflow-hidden">
@@ -207,13 +218,12 @@ const fullCategory = (category: string) => {
                 {{ selectedActivation.title }}
               </h2>
 
-              <!-- META -->
               <div class="text-sm text-gray-400 flex flex-wrap gap-4">
                 <span> 📍 {{ selectedActivation.location }} </span>
                 <span>
                   🗓
-                  {{ selectedActivation.start_date }} –
-                  {{ selectedActivation.end_date }}
+                  {{ formatDate(selectedActivation.start_date) }} –
+                  {{ formatDate(selectedActivation.end_date) }}
                 </span>
               </div>
             </header>
@@ -223,8 +233,6 @@ const fullCategory = (category: string) => {
               class="prose prose-invert prose-sm sm:prose-base max-w-none leading-relaxed text-justify"
             >
               {{ selectedActivation.content }}
-              {{ selectedActivation.cover_image }}
-              {{ selectedActivation.gallery }}
             </div>
           </div>
         </article>
