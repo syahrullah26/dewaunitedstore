@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: []
+})
+
 import { useArticleApi } from '~/composables/useArticle'
 import type { Article, PaginatedResponse } from '~/types/article'
 
