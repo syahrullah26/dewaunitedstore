@@ -174,7 +174,7 @@ onUnmounted(() => {
           class="mb-4 flex items-center gap-3 text-lg font-semibold text-white"
         >
           <i class="fas fa-building text-red-700"></i>
-          Follow Us
+          Follow Us On Social Media
         </h3>
         <div class="flex gap-4 items-center">
           <a href="https://shopee.co.id/dewaunitedstore" target="_blank">
@@ -218,7 +218,7 @@ onUnmounted(() => {
                 class="flex items-center gap-3 font-medium hover:text-white transition"
               >
                 <i class="fas fa-chevron-right text-xs text-red-700"></i>
-                Contact Us
+                Contact Us 
                 <i
                   class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"
                 ></i>
