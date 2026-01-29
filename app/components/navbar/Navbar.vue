@@ -84,6 +84,12 @@ const closeDropdown = (e: MouseEvent) => {
         >
           Products
         </NuxtLink>
+        <NuxtLink
+          to="/articles"
+          class="px-3 py-2 text-sm font-medium text-white rounded-md transition hover:bg-white/5 hover:text-[var(--gold-main)]"
+        >
+          Articles
+        </NuxtLink>
         <div class="relative group">
           <NuxtLink
             to="/marketing"
