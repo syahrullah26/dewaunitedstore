@@ -16,7 +16,6 @@ watch(activeCategory, () => {
 const openModal = async (item: Activation) => {
   selectedActivation.value = item;
 
-  // tunggu DOM modal & carousel render
   await nextTick();
   initCarousels();
 };
@@ -122,38 +121,40 @@ const fullCategory = (category: string) => {
         :data-aos-delay="700 + index * 100"
         class="group rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 hover:border-[var(--gold-main)]/40 transition"
       >
-        <div class="relative h-56 overflow-hidden">
-          <img
-            :src="item.cover_image"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+        <NuxtLink :to="`/marketing/activation/${item.slug}`" class="block">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              :src="item.cover_image"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
 
-          <span
-            class="absolute top-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
-            :class="badgeColor(item.category)"
-          >
-            {{ fullCategory(item.category) }}
-          </span>
-        </div>
+            <span
+              class="absolute top-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
+              :class="badgeColor(item.category)"
+            >
+              {{ fullCategory(item.category) }}
+            </span>
+          </div>
 
-        <div class="p-6">
-          <h2
-            class="text-xl font-semibold mb-2 group-hover:text-[var(--gold-main)]"
-          >
-            {{ item.title }}
-          </h2>
+          <div class="p-6">
+            <h2
+              class="text-xl font-semibold mb-2 group-hover:text-[var(--gold-main)]"
+            >
+              {{ item.title }}
+            </h2>
 
-          <p class="text-sm text-gray-400 mb-4 line-clamp-3">
-            {{ item.excerpt }}
-          </p>
+            <p class="text-sm text-gray-400 mb-4 line-clamp-3">
+              {{ item.excerpt }}
+            </p>
 
-          <button
-            @click="openModal(item)"
-            class="text-sm font-medium text-[var(--gold-main)] hover:underline"
-          >
-            Read activation →
-          </button>
-        </div>
+            <button
+              @click.prevent="openModal(item)"
+              class="text-sm font-medium text-[var(--gold-main)] hover:underline"
+            >
+              Read activation →
+            </button>
+          </div>
+        </NuxtLink>
       </article>
     </div>
 
@@ -168,63 +169,65 @@ const fullCategory = (category: string) => {
     >
       <div
         v-if="selectedActivation"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4 sm:px-6"
         @click.self="closeModal"
       >
-        <div
-          class="max-w-3xl w-full bg-zinc-900 rounded-2xl overflow-hidden border border-white/10"
+        <article
+          class="relative max-w-3xl w-full max-h-[90vh] bg-zinc-900 rounded-2xl overflow-hidden border border-white/10 shadow-xl flex flex-col"
         >
-          <!-- CAROUSEL -->
-          <div class="relative w-full" data-carousel="static">
-            <div class="relative h-64 overflow-hidden">
-              <div
-                v-for="(image, index) in selectedActivation.gallery_images"
-                :key="index"
-                class="hidden duration-700 ease-in-out"
-                :data-carousel-item="index === 0 ? 'active' : null"
-              >
-                <img
-                  :src="image"
-                  class="absolute block w-full h-full object-cover"
-                />
-
-                <span
-                  class="absolute bottom-4 left-4 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
-                  :class="badgeColor(selectedActivation.category)"
+          <div class="relative shrink-0">
+            <div class="relative h-56 sm:h-64 overflow-hidden">
+              <div class="flex overflow-x-auto gap-4">
+                <div
+                  v-for="(image, index) in selectedActivation.gallery"
+                  :key="index"
+                  class="flex-shrink-0 w-80 h-48 sm:w-96 sm:h-60 rounded-xl overflow-hidden"
                 >
-                  {{ fullCategory(selectedActivation.category) }}
-                </span>
+                  <img :src="image" class="w-full h-full object-cover" />
+                </div>
               </div>
             </div>
-
-            <!-- CONTROLS -->
             <button
-              type="button"
-              class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4"
-              data-carousel-prev
+              @click="closeModal"
+              class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black flex items-center justify-center text-white"
             >
-              ‹
+              ✕
             </button>
-            <button
-              type="button"
-              class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4"
-              data-carousel-next
+            <span
+              class="absolute bottom-4 left-4 z-20 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-md"
+              :class="badgeColor(selectedActivation.category)"
             >
-              ›
-            </button>
+              {{ fullCategory(selectedActivation.category) }}
+            </span>
           </div>
 
-          <!-- CONTENT -->
-          <div class="p-8">
-            <h2 class="text-2xl font-bold mb-4">
-              {{ selectedActivation.title }}
-            </h2>
+          <div class="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+            <header class="space-y-2">
+              <h2 class="text-2xl sm:text-3xl font-bold leading-tight">
+                {{ selectedActivation.title }}
+              </h2>
 
-            <p class="text-gray-400 whitespace-pre-line">
+              <!-- META -->
+              <div class="text-sm text-gray-400 flex flex-wrap gap-4">
+                <span> 📍 {{ selectedActivation.location }} </span>
+                <span>
+                  🗓
+                  {{ selectedActivation.start_date }} –
+                  {{ selectedActivation.end_date }}
+                </span>
+              </div>
+            </header>
+            <div class="border-t border-white/10"></div>
+
+            <div
+              class="prose prose-invert prose-sm sm:prose-base max-w-none leading-relaxed text-justify"
+            >
               {{ selectedActivation.content }}
-            </p>
+              {{ selectedActivation.cover_image }}
+              {{ selectedActivation.gallery }}
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </transition>
   </section>
