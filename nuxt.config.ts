@@ -1,6 +1,9 @@
 export default defineNuxtConfig({
-  css: ["~/assets/css/global.css", "~/components/index/hero/hero-fan.css"],
+  nitro: {
+    preset: 'vercel'
+  },
 
+  css: ["~/assets/css/global.css", "~/components/index/hero/hero-fan.css"],
   compatibilityDate: "2025-07-15",
 
   devServer: {
@@ -22,11 +25,13 @@ export default defineNuxtConfig({
   },
 
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/color-mode"],
+
   colorMode: {
     classSuffix: "",
     preference: "system",
     fallback: "dark",
   },
+
   plugins: ["~/plugins/pinia.ts"],
 
   app: {
@@ -48,4 +53,4 @@ export default defineNuxtConfig({
       ],
     },
   },
-});
+})
