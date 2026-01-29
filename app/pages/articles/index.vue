@@ -12,7 +12,6 @@ const currentPage = ref(1)
 
 let searchTimeout: ReturnType<typeof setTimeout> | null = null
 
-// Fetch articles with reactivity
 const { data: articles, pending, error, refresh } = await useAsyncData<PaginatedResponse<Article>>(
   'published-articles',
   () => getPublishedArticles({
@@ -29,7 +28,7 @@ const { data: articles, pending, error, refresh } = await useAsyncData<Paginated
 const debounceSearch = () => {
   if (searchTimeout) clearTimeout(searchTimeout)
   searchTimeout = setTimeout(() => {
-    currentPage.value = 1 // Reset to page 1 on search
+    currentPage.value = 1 
     refresh()
   }, 500)
 }
