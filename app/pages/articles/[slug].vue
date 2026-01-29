@@ -1,66 +1,80 @@
-
 <script setup lang="ts">
-import { useArticleApi } from '~/composables/useArticle'
-import type { Article } from '~/types/article'
+import { useArticleApi } from "~/composables/useArticle";
+import type { Article } from "~/types/article";
 
-const route = useRoute()
-const { getPublishedArticle } = useArticleApi()
+const route = useRoute();
+const { getPublishedArticle } = useArticleApi();
 
-const slug = route.params.slug as string
+const slug = route.params.slug as string;
 
 // Fetch article
-const { data: article, pending, error } = await useAsyncData<Article>(
-  `article-${slug}`,
-  () => getPublishedArticle(slug)
-)
+const {
+  data: article,
+  pending,
+  error,
+} = await useAsyncData<Article>(`article-${slug}`, () =>
+  getPublishedArticle(slug),
+);
 
 // Format date
 const formatDate = (dateString: string | null) => {
-  if (!dateString) return 'N/A'
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
 
 // Share functions
 const shareOnTwitter = () => {
-  const url = window.location.href
-  const text = article.value?.title || ''
-  window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank')
-}
+  const url = window.location.href;
+  const text = article.value?.title || "";
+  window.open(
+    `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`,
+    "_blank",
+  );
+};
 
 const shareOnFacebook = () => {
-  const url = window.location.href
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank')
-}
+  const url = window.location.href;
+  window.open(
+    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+    "_blank",
+  );
+};
 
 const copyLink = async () => {
   try {
-    await navigator.clipboard.writeText(window.location.href)
-    alert('Link copied to clipboard!')
+    await navigator.clipboard.writeText(window.location.href);
+    alert("Link copied to clipboard!");
   } catch (err) {
-    console.error('Failed to copy link:', err)
+    console.error("Failed to copy link:", err);
   }
-}
+};
 
 // SEO Meta
 useHead({
-  title: article.value?.meta_title || article.value?.title || 'Article',
+  title: article.value?.meta_title || article.value?.title || "Article",
   meta: [
-    { name: 'description', content: article.value?.meta_description || article.value?.excerpt || '' },
-    { name: 'keywords', content: article.value?.meta_keywords?.join(', ') || '' },
-    { property: 'og:title', content: article.value?.title || '' },
-    { property: 'og:description', content: article.value?.excerpt || '' },
-    { property: 'og:image', content: article.value?.banner_image || '' },
-    { property: 'og:type', content: 'article' }
-  ]
-})
+    {
+      name: "description",
+      content: article.value?.meta_description || article.value?.excerpt || "",
+    },
+    {
+      name: "keywords",
+      content: article.value?.meta_keywords?.join(", ") || "",
+    },
+    { property: "og:title", content: article.value?.title || "" },
+    { property: "og:description", content: article.value?.excerpt || "" },
+    { property: "og:image", content: article.value?.banner_image || "" },
+    { property: "og:type", content: "article" },
+  ],
+});
 </script>
 
-<style>
+<!-- <style>
 /* Custom prose styling for article content */
 .prose h1,
 .prose h2,
@@ -103,7 +117,7 @@ useHead({
 .prose pre {
   @apply bg-zinc-900 p-4 rounded-lg overflow-x-auto my-6;
 }
-</style>
+</style> -->
 <template>
   <div class="min-h-screen bg-zinc-950">
     <!-- Loading State -->
@@ -123,8 +137,15 @@ useHead({
     <!-- Error State -->
     <div v-else-if="error" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="text-center py-12">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 mb-4">
-          <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 mb-4"
+        >
+          <svg
+            class="w-8 h-8 text-red-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -133,8 +154,12 @@ useHead({
             />
           </svg>
         </div>
-        <h3 class="text-xl font-semibold text-zinc-50 mb-2">Article not found</h3>
-        <p class="text-zinc-400 mb-6">The article you're looking for doesn't exist or has been removed.</p>
+        <h3 class="text-xl font-semibold text-zinc-50 mb-2">
+          Article not found
+        </h3>
+        <p class="text-zinc-400 mb-6">
+          The article you're looking for doesn't exist or has been removed.
+        </p>
         <NuxtLink
           to="/articles"
           class="inline-block px-6 py-3 bg-gold hover:bg-goldDark text-white font-medium rounded-lg transition-colors"
@@ -145,14 +170,27 @@ useHead({
     </div>
 
     <!-- Article Content -->
-    <article v-else-if="article" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <article
+      v-else-if="article"
+      class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+    >
       <!-- Back Button -->
       <NuxtLink
         to="/articles"
         class="inline-flex items-center gap-2 text-zinc-400 hover:text-gold mb-8 transition-colors"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
         Back to Articles
       </NuxtLink>
@@ -166,7 +204,12 @@ useHead({
         <!-- Meta Info -->
         <div class="flex flex-wrap items-center gap-4 text-sm text-zinc-400">
           <span class="flex items-center gap-1">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -177,8 +220,18 @@ useHead({
             {{ formatDate(article.published_at) }}
           </span>
           <span class="flex items-center gap-1">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -192,13 +245,23 @@ useHead({
       </header>
 
       <!-- Banner Image -->
-      <div v-if="article.banner_image" class="aspect-video bg-zinc-900 rounded-lg overflow-hidden mb-8">
-        <img :src="article.banner_image" :alt="article.title" class="w-full h-full object-cover" />
+      <div
+        v-if="article.banner_image"
+        class="aspect-video bg-zinc-900 rounded-lg overflow-hidden mb-8"
+      >
+        <img
+          :src="article.banner_image"
+          :alt="article.title"
+          class="w-full h-full object-cover"
+        />
       </div>
 
       <!-- Article Content -->
       <div class="prose prose-invert prose-lg max-w-none mb-12">
-        <div v-html="article.content" class="text-zinc-300 leading-relaxed"></div>
+        <div
+          v-html="article.content"
+          class="text-zinc-300 leading-relaxed"
+        ></div>
       </div>
 
       <!-- Share Buttons (Optional) -->
@@ -210,8 +273,14 @@ useHead({
             class="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-lg transition-colors"
             title="Share on Twitter"
           >
-            <svg class="w-5 h-5 text-zinc-50" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+            <svg
+              class="w-5 h-5 text-zinc-50"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
+              />
             </svg>
           </button>
           <button
@@ -219,8 +288,14 @@ useHead({
             class="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-lg transition-colors"
             title="Share on Facebook"
           >
-            <svg class="w-5 h-5 text-zinc-50" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            <svg
+              class="w-5 h-5 text-zinc-50"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
             </svg>
           </button>
           <button
@@ -228,7 +303,12 @@ useHead({
             class="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-lg transition-colors"
             title="Copy link"
           >
-            <svg class="w-5 h-5 text-zinc-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              class="w-5 h-5 text-zinc-50"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
