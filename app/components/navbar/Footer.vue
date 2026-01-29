@@ -146,22 +146,39 @@ onUnmounted(() => {
           </h3>
           <ul class="space-y-4">
             <li>
-              <NuxtLink
-                to="/contact"
-                class="flex items-center gap-3 hover:text-white transition"
-              >
-                <i class="fas fa-chevron-right text-xs text-red-700" />
-                Contact Us
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                to="/downloads"
-                class="flex items-center gap-3 hover:text-white transition"
-              >
-                <i class="fas fa-chevron-right text-xs text-red-700" />
-                Downloads
-              </NuxtLink>
+              <div class="relative inline-block text-left group">
+                <button
+                  class="flex items-center gap-3 font-medium hover:text-white transition"
+                >
+                  <i class="fas fa-chevron-right text-xs text-red-700"></i>
+                  Contact Us
+                  <i
+                    class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"
+                  ></i>
+                </button>
+                <div
+                  class="absolute right-0 mt-2 w-56 bg-zinc-900 border border-white/20 rounded-lg shadow-lg opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200 z-50"
+                >
+                  <ul class="flex flex-col py-2">
+                    <li>
+                      <a
+                        href="mailto:your-email@example.com"
+                        class="block px-4 py-2 text-sm hover:bg-white/10 transition"
+                      >
+                        store@dewaunited.com
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://wa.me/#"
+                        class="block px-4 py-2 text-sm hover:bg-white/10 transition"
+                      >
+                        +62 812-3456-7890 
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
@@ -185,11 +202,11 @@ onUnmounted(() => {
             </li>
             <li>
               <NuxtLink
-                to="#"
+                to="/store/locations"
                 class="flex items-center gap-3 hover:text-white transition"
               >
                 <i class="fas fa-chevron-right text-xs text-red-700" />
-                Store Locator
+                Store Location
               </NuxtLink>
             </li>
           </ul>
