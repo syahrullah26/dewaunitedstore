@@ -8,7 +8,7 @@ definePageMeta({
 
 const { startGame, recordShot, endGame } = usePenaltyGame()
 
-// Game states
+// game states
 const gameState = ref<'menu' | 'playing' | 'result'>('menu')
 const currentSession = ref<GameSession | null>(null)
 const goalsScored = ref(0)
@@ -17,13 +17,13 @@ const maxShots = ref(10)
 const gameResult = ref<GameResult | null>(null)
 const isLoading = ref(false)
 
-// Ball animation states
+// State animasi bola
 const ballPosition = ref({ x: 50, y: 80 })
 const isKicking = ref(false)
 const kickDirection = ref<'left' | 'center' | 'right' | null>(null)
 const goalkeeperPosition = ref<'left' | 'center' | 'right'>('center')
 
-// Start new game
+// mulai game baru
 const handleStartGame = async () => {
   try {
     isLoading.value = true
@@ -41,7 +41,7 @@ const handleStartGame = async () => {
   }
 }
 
-// Shoot penalty
+// pinalti nendang
 const shoot = async (direction: 'left' | 'center' | 'right') => {
   if (isKicking.value || !currentSession.value) return
   
@@ -77,7 +77,7 @@ const shoot = async (direction: 'left' | 'center' | 'right') => {
   }, 2000)
 }
 
-// Animate ball movement
+// animasi gerak bola 
 const animateBall = (direction: 'left' | 'center' | 'right') => {
   return new Promise<void>((resolve) => {
     const targetX = direction === 'left' ? 20 : direction === 'right' ? 80 : 50
@@ -140,7 +140,7 @@ const getGoalkeeperPositionClass = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 p-5">
+  <div class="min-h-screen bg-gradient-to-br from-zinc-50 via-purple-100 to-black p-5">
     <div class="max-w-4xl mx-auto">
       
       <!-- Menu State -->
