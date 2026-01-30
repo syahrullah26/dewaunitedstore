@@ -226,7 +226,7 @@ const getGoalkeeperPositionClass = () => {
         <!-- Football Field -->
         <div class="relative h-96 md:h-[500px] bg-gradient-to-b from-green-400 to-green-500 rounded-xl mb-8 overflow-hidden">
             <img
-                src="/images/dewa-united.png"
+                src="/dewa-united.png"
                 alt="Dewa United"
                 class="absolute inset-0 m-auto w-32 md:w-40 opacity-20 pointer-events-none"
             />
