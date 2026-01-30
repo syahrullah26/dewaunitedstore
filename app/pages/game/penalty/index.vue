@@ -16,6 +16,8 @@ const totalShots = ref(0)
 const maxShots = ref(10)
 const gameResult = ref<GameResult | null>(null)
 const isLoading = ref(false)
+const goalRef = ref<HTMLElement | null>(null)
+const keeperState = ref<'idle' | 'left' | 'center' | 'right'>('idle')
 
 // State animasi bola
 const ballPosition = ref({ x: 50, y: 80 })
@@ -51,7 +53,10 @@ const shoot = async (direction: 'left' | 'center' | 'right') => {
   const positions: Array<'left' | 'center' | 'right'> = ['left', 'center', 'right']
   goalkeeperPosition.value =
   positions[Math.floor(Math.random() * positions.length)] as 'left' | 'center' | 'right'
-  
+  setTimeout(() => {
+    keeperState.value = goalkeeperPosition.value
+  }, 200)
+
   await animateBall(direction)
   
   const isGoal = direction !== goalkeeperPosition.value
@@ -80,16 +85,23 @@ const shoot = async (direction: 'left' | 'center' | 'right') => {
 // animasi gerak si bola 
 const animateBall = (direction: 'left' | 'center' | 'right') => {
     return new Promise<void>((resolve) => {
-        let targetX = 50
+        if (!goalRef.value) return resolve()
 
-        if (direction === 'left') targetX=42 + Math.random() * 3
-        if (direction === 'right') targetX=58 + Math.random() * 3
+        const goal = goalRef.value.getBoundingClientRect()
+        const field = goalRef.value.offsetParent!.getBoundingClientRect()
 
-        ballPosition.value = {
-            x: targetX,
-            y: 22
-        }
-        setTimeout(resolve, 800)
+        let xRatio = 0.5
+        if (direction === 'left') xRatio = 0.25
+        if (direction === 'right') xRatio = 0.75
+
+        const targetX = 
+            ((goal.left - field.left) + goal.width * xRatio) / field.width * 100
+        
+        const targetY =
+            ((goal.top - field.top) + goal.height * 0.6) / field.height * 100
+        
+        ballPosition.value = { x: targetX, y: targetY}
+        setTimeout(resolve,800)
     })
 }
 
@@ -100,6 +112,7 @@ const resetBall = () => {
     isKicking.value = false
     kickDirection.value = null
     goalkeeperPosition.value = 'center'
+    keeperState.value = 'idle'
   }, 500)
 }
 
@@ -135,10 +148,25 @@ const accuracy = computed(() => {
 
 // posisi gk
 const getGoalkeeperPositionClass = () => {
-  const position = goalkeeperPosition.value
-  if (position === 'left') return 'left-1/5 -translate-x-1/2'
-  if (position === 'right') return 'left-4/5 -translate-x-1/2'
+  if(goalkeeperPosition.value === 'left')
+    return 'left-[25%] -translate-x-1/2'
+  if(goalkeeperPosition.value === 'right')
+    return 'left-[75%] -translate-x-1/2'
   return 'left-1/2 -translate-x-1/2'
+}
+//animasi gk
+const getKeeperAnimationClass = () => {
+    if (keeperState.value === 'left') return 'keeper-dive-left'
+    if (keeperState.value === 'right') return 'keeper-dive-right'
+    if (keeperState.value === 'center') return 'keeper-dive-center'
+}
+const isSavedByKeeper = (
+    shotX: number,
+    keeper: 'left' | 'center' | 'right'
+    ) => {
+    if (keeper === 'left') return shotX < 35
+    if (keeper === 'right') return shotX > 65
+    return shotX >= 40 && shotX <= 60
 }
 </script>
 
@@ -228,22 +256,22 @@ const getGoalkeeperPositionClass = () => {
             <img
                 src="/dewa-united.png"
                 alt="Dewa United"
-                class="absolute inset-0 m-auto w-32 md:w-40 opacity-20 pointer-events-none"
+                class="absolute inset-0 m-auto w-56 md:w-72 opacity-15 pointer-events-none"
             />
           <!-- Goal -->
             <div
+                ref="goalRef"
                 class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 
-                        border-4 border-white border-t-0 bg-black/10 
-                        rotate-180"
+                        border-4 border-white border-t-0 bg-black/10 rotate-180"
             >
             <div class="w-full h-full opacity-30" style="background-image: repeating-linear-gradient(0deg, white, white 2px, transparent 2px, transparent 20px), repeating-linear-gradient(90deg, white, white 2px, transparent 2px, transparent 20px);"></div>
             
             <!-- Goalkeeper -->
             <div 
-              class="absolute -bottom-2 text-5xl transition-all duration-300 ease-out"
-              :class="[getGoalkeeperPositionClass(), { 'animate-bounce': isKicking }]"
+                class="absolute bottom-0 translate-y-1/2 text-5xl transition-all duration-300 ease-out"
+                :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
             >
-              🧤
+            🧤
             </div>
           </div>
 
@@ -370,3 +398,14 @@ const getGoalkeeperPositionClass = () => {
     </div>
   </div>
 </template>
+<style scoped>
+.keeper-dive-left {
+  transform: translateX(-40px) rotate(-20deg);
+}
+.keeper-dive-right {
+  transform: translateX(40px) rotate(20deg);
+}
+.keeper-dive-center {
+  transform: translateY(-20px);
+}
+</style>
