@@ -77,26 +77,29 @@ const shoot = async (direction: 'left' | 'center' | 'right') => {
   }, 2000)
 }
 
-// animasi gerak bola 
+// animasi gerak si bola 
 const animateBall = (direction: 'left' | 'center' | 'right') => {
-  return new Promise<void>((resolve) => {
-    const targetX = direction === 'left' ? 20 : direction === 'right' ? 80 : 50
-    const targetY = 20
-    
-    ballPosition.value = { x: targetX, y: targetY }
-    
-    setTimeout(() => {
-      resolve()
-    }, 800)
-  })
+    return new Promise<void>((resolve) => {
+        let targetX = 50
+
+        if (direction === 'left') targetX=42 + Math.random() * 3
+        if (direction === 'right') targetX=58 + Math.random() * 3
+
+        ballPosition.value = {
+            x: targetX,
+            y: 22
+        }
+        setTimeout(resolve, 800)
+    })
 }
 
-// Reset ball
+// Reset bola
 const resetBall = () => {
   setTimeout(() => {
     ballPosition.value = { x: 50, y: 80 }
     isKicking.value = false
     kickDirection.value = null
+    goalkeeperPosition.value = 'center'
   }, 500)
 }
 
@@ -124,13 +127,13 @@ const backToMenu = () => {
   resetBall()
 }
 
-// Computed accuracy
+// computed akurasi
 const accuracy = computed(() => {
   if (totalShots.value === 0) return 0
   return Math.round((goalsScored.value / totalShots.value) * 100)
 })
 
-// Get goalkeeper position class
+// posisi gk
 const getGoalkeeperPositionClass = () => {
   const position = goalkeeperPosition.value
   if (position === 'left') return 'left-1/5 -translate-x-1/2'
@@ -172,7 +175,7 @@ const getGoalkeeperPositionClass = () => {
               <span class="text-4xl">🏆</span>
               <div class="text-left">
                 <h3 class="text-xl font-bold text-gray-800">Bonus</h3>
-                <p class="text-sm text-gray-500">Akurasi tinggi</p>
+                <p class="text-sm text-gray-500">Akurasi</p>
               </div>
             </div>
           </div>
@@ -222,8 +225,17 @@ const getGoalkeeperPositionClass = () => {
 
         <!-- Football Field -->
         <div class="relative h-96 md:h-[500px] bg-gradient-to-b from-green-400 to-green-500 rounded-xl mb-8 overflow-hidden">
+            <img
+                src="/images/dewa-united.png"
+                alt="Dewa United"
+                class="absolute inset-0 m-auto w-32 md:w-40 opacity-20 pointer-events-none"
+            />
           <!-- Goal -->
-          <div class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 border-4 border-white border-t-0 bg-black/10">
+            <div
+                class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 
+                        border-4 border-white border-t-0 bg-black/10 
+                        rotate-180"
+            >
             <div class="w-full h-full opacity-30" style="background-image: repeating-linear-gradient(0deg, white, white 2px, transparent 2px, transparent 20px), repeating-linear-gradient(90deg, white, white 2px, transparent 2px, transparent 20px);"></div>
             
             <!-- Goalkeeper -->
