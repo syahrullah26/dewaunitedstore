@@ -9,18 +9,29 @@
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div
-            class="bg-zinc-800 rounded-lg pt-4 mt-3 border border-white/30 space-y-3 hover:border-[var(--gold-main)]"
+            data-aos="fade-up"
+            class="group rounded-2xl overflow-hidden bg-zinc-900 border border-white/30 hover:border-[var(--gold-main)] transition cursor-pointer"
           >
-            <div class="relative aspect-square bg-zinc-900 overflow-hidden">
-              <img
-                src="/du-universal.png"
-                class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-110"
-              />
-            </div>
+            <NuxtLink to="/minigames/flappy" class="block">
+              <div class="relative h-56 overflow-hidden">
+                <img
+                  src="/minigames/flappy/images/flappy-dewa.png"
+                  class="w-full h-full object-fit transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div class="p-6">
+                <h2
+                  class="text-xl font-semibold mb-2 group-hover:text-[var(--gold-main)]"
+                >
+                  Flappy Dewa
+                </h2>
+
+                <p class="text-sm text-gray-400 mb-4 line-clamp-3">
+                  Dapatkan point anda dengan bermain minigames seru dari Dewa
+                </p>
+              </div>
+            </NuxtLink>
           </div>
-          <div
-            class="bg-zinc-800 rounded-lg pt-4 mt-3 border border-white/30 space-y-3 hover:border-[var(--gold-main)]"
-          ></div>
         </div>
       </div>
     </div>
