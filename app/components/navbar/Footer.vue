@@ -141,31 +141,15 @@ onUnmounted(() => {
     </div>
   </div>
   <footer class="bg-zinc-900 text-white">
-    <!-- Top Highlights -->
-    <!-- <div class="bg-gradient-to-r from-black via-[#7b5902] to-[#aa8327] py-6">
-      <div
-        class="max-w-7xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center"
-      >
-        <div
-          v-for="(item, i) in [
-            { icon: 'fa-shipping-fast', text: 'Free Shipping' },
-            { icon: 'fa-shield-alt', text: 'Official Warranty' },
-            { icon: 'fa-certificate', text: '100% Original Product' },
-            { icon: 'fa-lock', text: 'Secure Payment' },
-          ]"
-          :key="i"
-          class="flex flex-col sm:flex-row items-center gap-3 justify-center"
-        >
-          <i :class="`fas ${item.icon} text-xl text-white`"></i>
-          <span
-            class="text-sm sm:text-base font-semibold text-white leading-snug"
-          >
-            {{ item.text }}
-          </span>
-        </div>
-      </div>
-    </div> -->
-    <hr class="border border-[#7b5902]" />
+    <div class="flex items-center justify-center gap-4">
+      <div class="flex-1 h-px bg-[#7b5902]"></div>
+      <img
+        src="/du-universal.png"
+        alt="Dewa United"
+        class="h-10 object-contain"
+      />
+      <div class="flex-1 h-px bg-[#7b5902]"></div>
+    </div>
     <div
       class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-3 gap-10"
     >
@@ -208,50 +192,101 @@ onUnmounted(() => {
         <h3
           class="mb-6 flex items-center gap-3 text-lg font-semibold text-white"
         >
-          <i class="fas fa-headset text-red-700" />
-          Support
+          <i class="fas fa-headset text-red-700 text-xl"></i>
+          Contact Us
         </h3>
-        <ul class="space-y-4">
-          <li>
-            <div class="relative inline-block text-left group">
-              <button
-                class="flex items-center gap-3 font-medium hover:text-white transition"
+        <div class="space-y-4">
+          <a
+            href="mailto:store@dewaunited.com"
+            class="flex items-center gap-4 rounded-xl px-4 py-3 transition-all hover:bg-white/10 hover:translate-x-1"
+          >
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-red-700/20"
+            >
+              <svg
+                width="800px"
+                height="800px"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <i class="fas fa-chevron-right text-xs text-red-700"></i>
-                Contact Us 
-                <i
-                  class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"
-                ></i>
-              </button>
-              <div
-                class="absolute right-0 mt-2 w-56 bg-zinc-900 border border-white/20 rounded-lg shadow-lg opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-200 z-50"
-              >
-                <ul class="flex flex-col py-2">
-                  <li>
-                    <a
-                      href="mailto:your-email@example.com"
-                      class="block px-4 py-2 text-sm hover:bg-white/10 transition"
-                    >
-                      store@dewaunited.com
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://wa.me/#"
-                      class="block px-4 py-2 text-sm hover:bg-white/10 transition"
-                    >
-                      +62 812-3456-7890
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                <path
+                  d="M2 11.9556C2 8.47078 2 6.7284 2.67818 5.39739C3.27473 4.22661 4.22661 3.27473 5.39739 2.67818C6.7284 2 8.47078 2 11.9556 2H20.0444C23.5292 2 25.2716 2 26.6026 2.67818C27.7734 3.27473 28.7253 4.22661 29.3218 5.39739C30 6.7284 30 8.47078 30 11.9556V20.0444C30 23.5292 30 25.2716 29.3218 26.6026C28.7253 27.7734 27.7734 28.7253 26.6026 29.3218C25.2716 30 23.5292 30 20.0444 30H11.9556C8.47078 30 6.7284 30 5.39739 29.3218C4.22661 28.7253 3.27473 27.7734 2.67818 26.6026C2 25.2716 2 23.5292 2 20.0444V11.9556Z"
+                  fill="white"
+                />
+                <path
+                  d="M22.0515 8.52295L16.0644 13.1954L9.94043 8.52295V8.52421L9.94783 8.53053V15.0732L15.9954 19.8466L22.0515 15.2575V8.52295Z"
+                  fill="#EA4335"
+                />
+                <path
+                  d="M23.6231 7.38639L22.0508 8.52292V15.2575L26.9983 11.459V9.17074C26.9983 9.17074 26.3978 5.90258 23.6231 7.38639Z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M22.0508 15.2575V23.9924H25.8428C25.8428 23.9924 26.9219 23.8813 26.9995 22.6513V11.459L22.0508 15.2575Z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M9.94811 24.0001V15.0732L9.94043 15.0669L9.94811 24.0001Z"
+                  fill="#C5221F"
+                />
+                <path
+                  d="M9.94014 8.52404L8.37646 7.39382C5.60179 5.91001 5 9.17692 5 9.17692V11.4651L9.94014 15.0667V8.52404Z"
+                  fill="#C5221F"
+                />
+                <path
+                  d="M9.94043 8.52441V15.0671L9.94811 15.0734V8.53073L9.94043 8.52441Z"
+                  fill="#C5221F"
+                />
+                <path
+                  d="M5 11.4668V22.6591C5.07646 23.8904 6.15673 24.0003 6.15673 24.0003H9.94877L9.94014 15.0671L5 11.4668Z"
+                  fill="#4285F4"
+                />
+              </svg>
             </div>
-          </li>
-        </ul>
+
+            <div>
+              <p class="text-sm font-medium text-white">Email</p>
+              <p class="text-xs text-white/70">store@dewaunited.com</p>
+            </div>
+          </a>
+          <a
+            href="https://wa.me/6281234567890"
+            target="_blank"
+            class="flex items-center gap-4 rounded-xl px-4 py-3 transition-all hover:bg-white/10 hover:translate-x-1"
+          >
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 32 32"
+                class="w-6 h-6"
+              >
+                <path
+                  fill="#25D366"
+                  d="M16 2.67c-7.37 0-13.33 5.97-13.33 13.33 0 2.35.61 4.65 1.77 6.69L2 30l7.5-2.39c1.97 1.07 4.19 1.63 6.5 1.63 7.37 0 13.33-5.97 13.33-13.33C29.33 8.64 23.37 2.67 16 2.67z"
+                />
+                <path
+                  fill="#fff"
+                  d="M22.4 18.8c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.47.13-.62.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.5-.17 0-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.07 2.92 1.22 3.12c.15.2 2.1 3.2 5.1 4.5.71.3 1.27.48 1.7.62.71.22 1.35.19 1.85.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.2-.57-.35z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="text-sm font-medium text-white">WhatsApp</p>
+              <p class="text-xs text-white/70">+62 812-3456-7890</p>
+            </div>
+          </a>
+        </div>
       </div>
 
       <div>
-        <NuxtLink to="/store/locations" class="block mb-6 cursor-pointer hover:text-white hover:underline hover:font-bold transition">
+        <NuxtLink
+          to="/store/locations"
+          class="block mb-6 cursor-pointer hover:text-white hover:underline hover:font-bold transition"
+        >
           <h3 class="text-lg font-bold mb-4">Store Locations</h3>
         </NuxtLink>
         <ul
