@@ -16,6 +16,7 @@ const totalShots = ref(0);
 const maxShots = ref(10);
 const gameResult = ref<GameResult | null>(null);
 const isLoading = ref(false);
+const fieldRef = ref<HTMLElement | null>(null)
 const goalRef = ref<HTMLElement | null>(null);
 const keeperState = ref<"idle" | "left" | "center" | "right">("idle");
 
@@ -249,7 +250,7 @@ const isSavedByKeeper = (
       <!-- Playing State -->
       <div
         v-else-if="gameState === 'playing'"
-        class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl"
+        class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 max-w-4xl mx-auto"
       >
         <!-- Score Board -->
         <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-50 rounded-xl p-5">
@@ -273,7 +274,7 @@ const isSavedByKeeper = (
           </div>
         </div>
 
-        <!-- Football Field -->
+        <!-- lapangan -->
         <div
           class="relative h-96 md:h-[500px] bg-gradient-to-b from-green-400 to-green-500 rounded-xl mb-8 overflow-hidden"
         >
@@ -282,7 +283,7 @@ const isSavedByKeeper = (
             alt="Dewa United"
             class="absolute inset-0 m-auto w-56 md:w-72 opacity-15 pointer-events-none"
           />
-          <!-- Goal -->
+          <!-- gawang -->
           <div
             ref="goalRef"
             class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 border-4 border-white border-t-0 bg-black/10 rotate-180"
@@ -308,10 +309,19 @@ const isSavedByKeeper = (
               "
             ></div>
 
-            <!-- Goalkeeper -->
+            <!-- gk -->
             <div
-              class="absolute bottom-0 translate-y-1/2 text-5xl transition-all duration-300 ease-out"
+              class="absolute text-5xl transition-all duration-300 ease-out drop-shadow-lg"
               :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
+              :style="{
+                top:
+                  fieldRef && goalRef
+                    ? goalRef.getBoundingClientRect().bottom -
+                      fieldRef.getBoundingClientRect().top +
+                      8 +
+                      'px'
+                    : '170px'
+              }"
             >
               🧤
             </div>
