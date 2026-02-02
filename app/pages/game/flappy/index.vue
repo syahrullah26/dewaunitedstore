@@ -109,15 +109,12 @@ const jump = () => {
 const spawnPipe = () => {
   const MIN_PIPE_HEIGHT = 80;
 
-  const maxTop =
-    GAME_HEIGHT.value - PIPE_GAP - MIN_PIPE_HEIGHT;
+  const maxTop = GAME_HEIGHT.value - PIPE_GAP - MIN_PIPE_HEIGHT;
 
   const top =
-    Math.floor(Math.random() * (maxTop - MIN_PIPE_HEIGHT)) +
-    MIN_PIPE_HEIGHT;
+    Math.floor(Math.random() * (maxTop - MIN_PIPE_HEIGHT)) + MIN_PIPE_HEIGHT;
 
-  const bottom =
-    GAME_HEIGHT.value - top - PIPE_GAP;
+  const bottom = GAME_HEIGHT.value - top - PIPE_GAP;
 
   pipes.value.push({
     x: GAME_WIDTH.value,
@@ -147,38 +144,26 @@ const gameLoop = () => {
       scoreSound?.play().catch(() => {});
     }
 
-    const hitX =
-      pipe.x < BIRD_X + BIRD_SIZE &&
-      pipe.x + PIPE_WIDTH > BIRD_X;
+    const hitX = pipe.x < BIRD_X + BIRD_SIZE && pipe.x + PIPE_WIDTH > BIRD_X;
 
     if (
       hitX &&
-      (birdY.value < pipe.top ||
-        birdY.value + BIRD_SIZE >
-          pipe.top + PIPE_GAP)
+      (birdY.value < pipe.top || birdY.value + BIRD_SIZE > pipe.top + PIPE_GAP)
     ) {
       endGame();
       return;
     }
   }
 
-  if (
-    birdY.value < 0 ||
-    birdY.value + BIRD_SIZE > GAME_HEIGHT.value
-  ) {
+  if (birdY.value < 0 || birdY.value + BIRD_SIZE > GAME_HEIGHT.value) {
     endGame();
     return;
   }
 
-  pipes.value = pipes.value.filter(
-    (p) => p.x + PIPE_WIDTH > 0
-  );
+  pipes.value = pipes.value.filter((p) => p.x + PIPE_WIDTH > 0);
 
   const lastPipe = pipes.value[pipes.value.length - 1];
-  if (
-    !lastPipe ||
-    lastPipe.x < GAME_WIDTH.value - pipeDistance.value
-  ) {
+  if (!lastPipe || lastPipe.x < GAME_WIDTH.value - pipeDistance.value) {
     spawnPipe();
   }
 };
@@ -254,7 +239,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-zinc-900 px-2">
+  <div
+    class="min-h-screen bg-zinc-900 px-2 flex flex-col items-center justify-center"
+  >
+    <!-- TITLE -->
+    <h1 class="text-4xl font-bold text-white mb-6">Flappy Dewa</h1>
+
+    <!-- GAME -->
     <div
       class="relative bg-sky-300 overflow-hidden rounded-xl touch-manipulation"
       :style="{ width: GAME_WIDTH + 'px', height: GAME_HEIGHT + 'px' }"
@@ -275,12 +266,12 @@ onUnmounted(() => {
         :style="{ transform: `translate3d(${pipe.x}px,0,0)` }"
       >
         <div
-          class="bg-gradient-to-b from-[var(--gold-main)] to-[var(--gold-dark)]"
+          class="bg-gradient-to-b from-[var(--gold-main)] to-[var(--gold-dark)] shadow-[inset_-6px_0_0_rgba(255,255,255,0.2)] shadow-lg border border-black/30 border-b-0"
           :style="{ height: pipe.top + 'px' }"
         />
         <div :style="{ height: PIPE_GAP + 'px' }" />
         <div
-          class="bg-gradient-to-b from-[var(--gold-main)] to-[var(--gold-dark)]"
+          class="bg-gradient-to-b from-[var(--gold-main)] to-[var(--gold-dark)] shadow-[inset_-6px_0_0_rgba(255,255,255,0.2)] shadow-lg border border-black/30 border-t-0"
           :style="{ height: pipe.bottom + 'px' }"
         />
       </div>

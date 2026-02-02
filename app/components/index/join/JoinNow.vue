@@ -18,7 +18,7 @@
           Join Now
         </button>
       </NuxtLink>
-      <NuxtLink to="/minigames" target="_blank" external>
+      <NuxtLink to="/game" target="_blank" external>
         <button
           data-aos="zoom-in"
           data-aos-delay="300"
