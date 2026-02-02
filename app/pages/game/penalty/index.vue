@@ -103,7 +103,7 @@ const animateBall = (direction: "left" | "center" | "right") => {
   return new Promise<void>((resolve) => {
     // Gunakan posisi X yang sama dengan goalkeeper
     const targetX = POSITIONS[direction];
-    const targetY = 20; // Posisi Y tetap di area gawang
+    const targetY = 15; // Posisi Y di dalam gawang (lebih tinggi karena gawang sekarang normal)
 
     ballPosition.value = { x: targetX, y: targetY };
     setTimeout(resolve, 800);
@@ -277,7 +277,7 @@ const getKeeperAnimationClass = () => {
           <!-- gawang -->
           <div
             ref="goalRef"
-            class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 border-4 border-white border-t-0 bg-black/10 rotate-180"
+            class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 border-4 border-white border-t-0 bg-black/10"
           >
             <div
               class="w-full h-full opacity-30"
@@ -301,12 +301,12 @@ const getKeeperAnimationClass = () => {
             ></div>
           </div>
 
-          <!-- goalkeeper - sekarang terpisah dari gawang -->
+          <!-- goalkeeper - di bawah gawang -->
           <div
             class="absolute text-5xl transition-all duration-300 ease-out drop-shadow-lg z-10"
             :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
             :style="{
-              top: '165px'
+              top: '185px'
             }"
           >
             🧤
