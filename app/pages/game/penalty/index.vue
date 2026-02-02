@@ -170,7 +170,7 @@ const isSavedByKeeper = (
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gold via-goldHover to-goldDark p-5">
+  <div class="min-h-screen bg-gradient-to-br from-[var(--gold-main)] via-[var(--gold-light)] to-[var(--gold-dark)] p-5">
     <div class="max-w-4xl mx-auto">
       
       <!-- Menu awal-->
