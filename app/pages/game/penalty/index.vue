@@ -172,11 +172,11 @@ const isSavedByKeeper = (
 
 <template>
 
-  <div class="min-h-screen bg-gradient-to-br from-[var(--gold-main)] via-[var(--gold-light)] to-[var(--gold-dark)] p-5">
+  <div class="relative min-h-screen bg-gradient-to-br from-[var(--gold-main)] via-[var(--gold-light)] to-[var(--gold-dark)] p-5 overflow-hidden">
     <img
-        src="/du-universal.png"
-        class="w-full h-full object-cover opacity-20"
-        alt="Dewa United Background"
+      src="/du-universal.png"
+      class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0"
+      alt="Dewa United Background"
     />
     <div class="max-w-4xl mx-auto">
       
