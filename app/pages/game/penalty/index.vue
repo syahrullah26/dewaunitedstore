@@ -175,9 +175,19 @@ const isSavedByKeeper = (
 </script>
 
 <template>
+<<<<<<< HEAD
   <div
     class="min-h-screen bg-gradient-to-br from-zinc-50 via-purple-100 to-black p-5"
   >
+=======
+
+  <div class="relative min-h-screen bg-gradient-to-br from-[var(--gold-main)] via-[var(--gold-light)] to-[var(--gold-dark)] p-5 overflow-hidden">
+    <img
+      src="/du-universal.png"
+      class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0"
+      alt="Dewa United Background"
+    />
+>>>>>>> f19055bf556cde5e08f3b11776e654cc257058bb
     <div class="max-w-4xl mx-auto">
       <!-- Menu State -->
       <div
@@ -185,9 +195,13 @@ const isSavedByKeeper = (
         class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl"
       >
         <div class="text-center">
+<<<<<<< HEAD
           <h1
             class="text-4xl md:text-6xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent"
           >
+=======
+          <h1 class="text-4xl md:text-6xl font-bold mb-3 text-[var(--gold-main)] bg-clip-text text-transparent">
+>>>>>>> f19055bf556cde5e08f3b11776e654cc257058bb
             ⚽ Penalty Shootout
           </h1>
           <p class="text-lg md:text-xl text-gray-600 mb-8">
@@ -229,6 +243,7 @@ const isSavedByKeeper = (
           </button>
 
           <div class="flex flex-wrap justify-center gap-5 mt-8">
+<<<<<<< HEAD
             <NuxtLink
               to="/game/penalty/leaderboard"
               class="text-purple-600 font-semibold hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors"
@@ -238,6 +253,17 @@ const isSavedByKeeper = (
             <NuxtLink
               to="/game/penalty/stats"
               class="text-purple-600 font-semibold hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors"
+=======
+            <NuxtLink 
+              to="/game/penalty/leaderboard" 
+              class="text-black font-semibold hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors"
+            >
+              📊 Lihat Leaderboard
+            </NuxtLink>
+            <NuxtLink 
+              to="/game/penalty/stats" 
+              class="text-black font-semibold hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors"
+>>>>>>> f19055bf556cde5e08f3b11776e654cc257058bb
             >
               📈 Statistik Saya
             </NuxtLink>
