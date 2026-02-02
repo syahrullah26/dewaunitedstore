@@ -43,7 +43,7 @@
             <NuxtLink to="/game/penalty" class="block">
               <div class="relative h-56 overflow-hidden">
                 <img
-                  src="/minigames/flappy/images/penalty.png"
+                  src="/minigames/penalty/penalty.png"
                   class="w-full h-full object-fit transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
