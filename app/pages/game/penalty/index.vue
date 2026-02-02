@@ -171,13 +171,21 @@ const isSavedByKeeper = (
 </script>
 
 <template>
+<<<<<<< HEAD
   <div class="min-h-screen bg-gradient-to-br from-zinc-50 via-purple-100 to-black p-5">
+=======
+  <div class="min-h-screen bg-gradient-to-br from-gold via-goldHover to-goldDark p-5">
+>>>>>>> e9ddd89ea04e433e5efd1b5962c75d42af396c6c
     <div class="max-w-4xl mx-auto">
       
       <!-- Menu State -->
       <div v-if="gameState === 'menu'" class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl">
         <div class="text-center">
+<<<<<<< HEAD
           <h1 class="text-4xl md:text-6xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+=======
+          <h1 class="text-4xl md:text-6xl font-bold mb-3 text-goldDark bg-clip-text text-transparent">
+>>>>>>> e9ddd89ea04e433e5efd1b5962c75d42af396c6c
             ⚽ Penalty Shootout
           </h1>
           <p class="text-lg md:text-xl text-gray-600 mb-8">

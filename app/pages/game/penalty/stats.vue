@@ -74,7 +74,7 @@ const avgGoalsPerGame = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 p-5">
+  <div class="min-h-screen bg-gradient-to-br from-gold via-goldHover to-goldDark p-5">
     <div class="max-w-6xl mx-auto">
       
       <!-- Header -->
