@@ -3,7 +3,7 @@ import type { GameStats, GameHistory, Pagination } from '~/types/penalty-game'
 import { usePenaltyGame } from '~/composables/usePenaltyGame'
 
 definePageMeta({
-  middleware: 'auth-middleware' // Sesuaikan dengan nama middleware di project Anda
+  middleware: 'auth-middleware' 
 })
 
 const { getUserStats, getUserHistory } = usePenaltyGame()
@@ -15,7 +15,7 @@ const currentPage = ref(1)
 const isLoadingStats = ref(false)
 const isLoadingHistory = ref(false)
 
-// Load user stats
+// load status usr
 const loadStats = async () => {
   try {
     isLoadingStats.value = true
@@ -28,7 +28,7 @@ const loadStats = async () => {
   }
 }
 
-// Load game history
+// load histry game
 const loadHistory = async (page: number = 1) => {
   try {
     isLoadingHistory.value = true
@@ -43,7 +43,7 @@ const loadHistory = async (page: number = 1) => {
   }
 }
 
-// Format date
+// format tanggl
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString)
   return new Intl.DateTimeFormat('id-ID', {
@@ -55,13 +55,13 @@ const formatDate = (dateString: string): string => {
   }).format(date)
 }
 
-// Load on mount
+
 onMounted(() => {
   loadStats()
   loadHistory()
 })
 
-// Computed average per game
+
 const avgPointsPerGame = computed(() => {
   if (!stats.value || stats.value.games_played === 0) return 0
   return Math.round(stats.value.total_points / stats.value.games_played)
@@ -101,7 +101,7 @@ const avgGoalsPerGame = computed(() => {
 
       <!-- Stats Cards -->
       <div v-else-if="stats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-        <!-- Main Stats -->
+        <!-- stats utama per user -->
         <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-2xl p-6 shadow-xl md:col-span-2 flex items-center gap-5">
           <div class="text-5xl md:text-6xl">⭐</div>
           <div class="flex-1">
@@ -134,7 +134,7 @@ const avgGoalsPerGame = computed(() => {
           </div>
         </div>
 
-        <!-- Secondary Stats -->
+        <!-- stats sekundernya aja -->
         <div class="bg-white rounded-2xl p-6 shadow-xl flex items-center gap-4">
           <div class="text-4xl">💯</div>
           <div class="flex-1">
@@ -167,7 +167,6 @@ const avgGoalsPerGame = computed(() => {
           </div>
         </div>
 
-        <!-- Averages -->
         <div class="bg-white rounded-2xl p-6 shadow-xl md:col-span-2">
           <div class="grid grid-cols-2 gap-6">
             <div class="text-center">
@@ -182,19 +181,16 @@ const avgGoalsPerGame = computed(() => {
         </div>
       </div>
 
-      <!-- Game History -->
       <div class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
           📋 Riwayat Game
         </h2>
 
-        <!-- History Loading -->
         <div v-if="isLoadingHistory && history.length === 0" class="text-center py-16">
           <div class="inline-block w-12 h-12 border-4 border-gray-300 border-t-purple-600 rounded-full animate-spin mb-5"></div>
           <p class="text-gray-600 text-lg">Memuat riwayat...</p>
         </div>
 
-        <!-- History List -->
         <div v-else-if="history.length > 0" class="space-y-4">
           <div 
             v-for="game in history" 
@@ -222,7 +218,6 @@ const avgGoalsPerGame = computed(() => {
             </div>
           </div>
 
-          <!-- Pagination -->
           <div 
             v-if="pagination && pagination.last_page > 1" 
             class="flex flex-col md:flex-row justify-center items-center gap-5 mt-6 pt-6 border-t border-gray-200"
@@ -249,7 +244,6 @@ const avgGoalsPerGame = computed(() => {
           </div>
         </div>
 
-        <!-- Empty State -->
         <div v-else class="text-center py-16">
           <p class="text-xl text-gray-600 mb-6">Belum ada riwayat game</p>
           <NuxtLink 

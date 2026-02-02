@@ -133,14 +133,13 @@ const handleEndGame = async () => {
   }
 }
 
-// Back to menu
 const backToMenu = () => {
   gameState.value = 'menu'
   currentSession.value = null
   resetBall()
 }
 
-// computed akurasi
+// itung akurasi
 const accuracy = computed(() => {
   if (totalShots.value === 0) return 0
   return Math.round((goalsScored.value / totalShots.value) * 100)
@@ -171,13 +170,13 @@ const isSavedByKeeper = (
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-zinc-50 via-purple-100 to-black p-5">
+  <div class="min-h-screen bg-gradient-to-br from-gold-light via-gold-main to-gold-dark p-5">
     <div class="max-w-4xl mx-auto">
       
-      <!-- Menu State -->
+      <!-- Menu awal-->
       <div v-if="gameState === 'menu'" class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl">
         <div class="text-center">
-          <h1 class="text-4xl md:text-6xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+          <h1 class="text-4xl md:text-6xl font-bold mb-3 text-gold-dark bg-clip-text text-transparent">
             ⚽ Penalty Shootout
           </h1>
           <p class="text-lg md:text-xl text-gray-600 mb-8">
@@ -251,14 +250,14 @@ const isSavedByKeeper = (
           </div>
         </div>
 
-        <!-- Football Field -->
+        <!-- lapangan -->
         <div class="relative h-96 md:h-[500px] bg-gradient-to-b from-green-400 to-green-500 rounded-xl mb-8 overflow-hidden">
             <img
                 src="/dewa-united.png"
                 alt="Dewa United"
                 class="absolute inset-0 m-auto w-56 md:w-72 opacity-15 pointer-events-none"
             />
-          <!-- Goal -->
+          <!-- gawang -->
             <div
                 ref="goalRef"
                 class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 
@@ -266,7 +265,7 @@ const isSavedByKeeper = (
             >
             <div class="w-full h-full opacity-30" style="background-image: repeating-linear-gradient(0deg, white, white 2px, transparent 2px, transparent 20px), repeating-linear-gradient(90deg, white, white 2px, transparent 2px, transparent 20px);"></div>
             
-            <!-- Goalkeeper -->
+            <!-- gk -->
             <div 
                 class="absolute bottom-0 translate-y-1/2 text-5xl transition-all duration-300 ease-out"
                 :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
@@ -275,7 +274,7 @@ const isSavedByKeeper = (
             </div>
           </div>
 
-          <!-- Ball -->
+          <!-- bola -->
           <div 
             class="absolute text-4xl md:text-5xl transition-all duration-700 ease-out"
             :class="{ 'animate-spin': isKicking }"
@@ -288,11 +287,10 @@ const isSavedByKeeper = (
             ⚽
           </div>
 
-          <!-- Penalty Spot -->
           <div class="absolute bottom-12 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full"></div>
         </div>
 
-        <!-- Shoot Buttons -->
+        <!-- button nendang -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button 
             @click="shoot('left')"
@@ -318,7 +316,7 @@ const isSavedByKeeper = (
         </div>
       </div>
 
-      <!-- Result State -->
+      <!-- Hasil game -->
       <div v-else-if="gameState === 'result'" class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl">
         <div v-if="gameResult" class="text-center">
           <h1 class="text-4xl md:text-5xl font-bold mb-8 text-purple-600">
