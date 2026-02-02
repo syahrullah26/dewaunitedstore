@@ -185,10 +185,7 @@ const isSavedByKeeper = (
     />
     <div class="max-w-4xl mx-auto">
       <!-- Menu State -->
-      <div
-        v-if="gameState === 'menu'"
-        class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative z-10 max-w-4xl mx-auto"
-      >
+      <div v-if="gameState === 'menu'" class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative z-10 max-w-4xl mx-auto">
         <div class="text-center">
           <h1
             class="text-4xl md:text-6xl font-bold mb-3 text-[var(--gold-main)] bg-clip-text text-transparent"
