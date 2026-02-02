@@ -51,7 +51,7 @@ const getRankClasses = (rank: number): string => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gold-light via-gold-main to-gold-dark p-5">
+  <div class="min-h-screen bg-gradient-to-br from-gold via-goldHover to-goldDark p-5">
     <div class="max-w-5xl mx-auto">
       
       <!-- Header -->
