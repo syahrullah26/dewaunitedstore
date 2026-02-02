@@ -44,6 +44,13 @@ const handleStartGame = async () => {
   }
 };
 
+// Posisi tetap untuk setiap arah
+const POSITIONS = {
+  left: 25,    // 25% dari lebar
+  center: 50,  // 50% dari lebar  
+  right: 75    // 75% dari lebar
+};
+
 // pinalti nendang
 const shoot = async (direction: "left" | "center" | "right") => {
   if (isKicking.value || !currentSession.value) return;
@@ -51,6 +58,7 @@ const shoot = async (direction: "left" | "center" | "right") => {
   isKicking.value = true;
   kickDirection.value = direction;
 
+  // Random goalkeeper position
   const positions: Array<"left" | "center" | "right"> = [
     "left",
     "center",
@@ -59,12 +67,14 @@ const shoot = async (direction: "left" | "center" | "right") => {
   goalkeeperPosition.value = positions[
     Math.floor(Math.random() * positions.length)
   ] as "left" | "center" | "right";
+  
   setTimeout(() => {
     keeperState.value = goalkeeperPosition.value;
   }, 200);
 
   await animateBall(direction);
 
+  // Cek apakah gol - menggunakan posisi yang sama
   const isGoal = direction !== goalkeeperPosition.value;
 
   if (isGoal) {
@@ -88,23 +98,12 @@ const shoot = async (direction: "left" | "center" | "right") => {
   }, 2000);
 };
 
-// animasi gerak si bola
+// animasi gerak si bola - menggunakan posisi tetap
 const animateBall = (direction: "left" | "center" | "right") => {
   return new Promise<void>((resolve) => {
-    if (!goalRef.value) return resolve();
-
-    const goal = goalRef.value.getBoundingClientRect();
-    const field = goalRef.value.offsetParent!.getBoundingClientRect();
-
-    let xRatio = 0.5;
-    if (direction === "left") xRatio = 0.25;
-    if (direction === "right") xRatio = 0.75;
-
-    const targetX =
-      ((goal.left - field.left + goal.width * xRatio) / field.width) * 100;
-
-    const targetY =
-      ((goal.top - field.top + goal.height * 0.6) / field.height) * 100;
+    // Gunakan posisi X yang sama dengan goalkeeper
+    const targetX = POSITIONS[direction];
+    const targetY = 20; // Posisi Y tetap di area gawang
 
     ballPosition.value = { x: targetX, y: targetY };
     setTimeout(resolve, 800);
@@ -152,31 +151,22 @@ const accuracy = computed(() => {
   return Math.round((goalsScored.value / totalShots.value) * 100);
 });
 
-// posisi gk
+// posisi gk - menggunakan posisi tetap yang sama
 const getGoalkeeperPositionClass = () => {
-  if (goalkeeperPosition.value === "left") return "left-[25%] -translate-x-1/2";
-  if (goalkeeperPosition.value === "right")
-    return "left-[75%] -translate-x-1/2";
-  return "left-1/2 -translate-x-1/2";
+  const position = POSITIONS[goalkeeperPosition.value];
+  return `left-[${position}%] -translate-x-1/2`;
 };
-//animasi gk
+
+// animasi gk
 const getKeeperAnimationClass = () => {
   if (keeperState.value === "left") return "keeper-dive-left";
   if (keeperState.value === "right") return "keeper-dive-right";
   if (keeperState.value === "center") return "keeper-dive-center";
-};
-const isSavedByKeeper = (
-  shotX: number,
-  keeper: "left" | "center" | "right",
-) => {
-  if (keeper === "left") return shotX < 35;
-  if (keeper === "right") return shotX > 65;
-  return shotX >= 40 && shotX <= 60;
+  return "";
 };
 </script>
 
 <template>
-
   <div class="relative min-h-screen bg-gradient-to-r from-black/95 via-black/70 to-transparent p-5 overflow-hidden">
     <img
       src="/du-universal.png"
@@ -276,6 +266,7 @@ const isSavedByKeeper = (
 
         <!-- lapangan -->
         <div
+          ref="fieldRef"
           class="relative h-96 md:h-[500px] bg-gradient-to-b from-green-400 to-green-500 rounded-xl mb-8 overflow-hidden"
         >
           <img
@@ -308,28 +299,22 @@ const isSavedByKeeper = (
                   );
               "
             ></div>
+          </div>
 
-            <!-- gk -->
-            <div
-              class="absolute text-5xl transition-all duration-300 ease-out drop-shadow-lg"
-              :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
-              :style="{
-                top:
-                  fieldRef && goalRef
-                    ? goalRef.getBoundingClientRect().bottom -
-                      fieldRef.getBoundingClientRect().top +
-                      8 +
-                      'px'
-                    : '170px'
-              }"
-            >
-              🧤
-            </div>
+          <!-- goalkeeper - sekarang terpisah dari gawang -->
+          <div
+            class="absolute text-5xl transition-all duration-300 ease-out drop-shadow-lg z-10"
+            :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
+            :style="{
+              top: '165px'
+            }"
+          >
+            🧤
           </div>
 
           <!-- Ball -->
           <div
-            class="absolute text-4xl md:text-5xl transition-all duration-700 ease-out"
+            class="absolute text-4xl md:text-5xl transition-all duration-700 ease-out z-20"
             :class="{ 'animate-spin': isKicking }"
             :style="{
               left: `${ballPosition.x}%`,
@@ -375,7 +360,7 @@ const isSavedByKeeper = (
       <!-- Result State -->
       <div
         v-else-if="gameState === 'result'"
-        class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl"
+        class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative z-10"
       >
         <div v-if="gameResult" class="text-center">
           <h1 class="text-4xl md:text-5xl font-bold mb-8 text-purple-600">
@@ -471,14 +456,15 @@ const isSavedByKeeper = (
     </div>
   </div>
 </template>
+
 <style scoped>
 .keeper-dive-left {
-  transform: translateX(-40px) rotate(-20deg);
+  transform: translateX(-60px) rotate(-25deg);
 }
 .keeper-dive-right {
-  transform: translateX(40px) rotate(20deg);
+  transform: translateX(60px) rotate(25deg);
 }
 .keeper-dive-center {
-  transform: translateY(-20px);
+  transform: translateY(-30px) scale(1.1);
 }
 </style>
