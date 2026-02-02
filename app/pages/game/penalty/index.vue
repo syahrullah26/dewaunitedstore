@@ -186,7 +186,9 @@ const isSavedByKeeper = (
       <!-- Menu State -->
       <div v-if="gameState === 'menu'" class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative z-10 max-w-4xl mx-auto">
         <div class="text-center">
-          <h1 class="text-4xl md:text-6xl font-bold mb-3 text-black bg-clip-text text-transparent">
+          <h1 class="text-4xl md:text-6xl font-bold mb-3
+                    bg-gradient-to-r from-[var(--gold-main)] to-[var(--gold-dark)]
+                    bg-clip-text text-transparent">
             ⚽ Penalty Shootout
           </h1>
           <p class="text-lg md:text-xl text-gray-600 mb-8">
