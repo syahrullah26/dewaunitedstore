@@ -16,7 +16,6 @@ const totalShots = ref(0);
 const maxShots = ref(10);
 const gameResult = ref<GameResult | null>(null);
 const isLoading = ref(false);
-const fieldRef = ref<HTMLElement | null>(null)
 const goalRef = ref<HTMLElement | null>(null);
 const keeperState = ref<"idle" | "left" | "center" | "right">("idle");
 
@@ -44,13 +43,6 @@ const handleStartGame = async () => {
   }
 };
 
-// Posisi tetap untuk setiap arah
-const POSITIONS = {
-  left: 25,    // 25% dari lebar
-  center: 50,  // 50% dari lebar  
-  right: 75    // 75% dari lebar
-};
-
 // pinalti nendang
 const shoot = async (direction: "left" | "center" | "right") => {
   if (isKicking.value || !currentSession.value) return;
@@ -58,7 +50,6 @@ const shoot = async (direction: "left" | "center" | "right") => {
   isKicking.value = true;
   kickDirection.value = direction;
 
-  // Random goalkeeper position
   const positions: Array<"left" | "center" | "right"> = [
     "left",
     "center",
@@ -67,14 +58,12 @@ const shoot = async (direction: "left" | "center" | "right") => {
   goalkeeperPosition.value = positions[
     Math.floor(Math.random() * positions.length)
   ] as "left" | "center" | "right";
-  
   setTimeout(() => {
     keeperState.value = goalkeeperPosition.value;
   }, 200);
 
   await animateBall(direction);
 
-  // Cek apakah gol - menggunakan posisi yang sama
   const isGoal = direction !== goalkeeperPosition.value;
 
   if (isGoal) {
@@ -98,12 +87,23 @@ const shoot = async (direction: "left" | "center" | "right") => {
   }, 2000);
 };
 
-// animasi gerak si bola - menggunakan posisi tetap
+// animasi gerak si bola
 const animateBall = (direction: "left" | "center" | "right") => {
   return new Promise<void>((resolve) => {
-    // Gunakan posisi X yang sama dengan goalkeeper
-    const targetX = POSITIONS[direction];
-    const targetY = 10; // Posisi Y di dalam gawang (lebih tinggi)
+    if (!goalRef.value) return resolve();
+
+    const goal = goalRef.value.getBoundingClientRect();
+    const field = goalRef.value.offsetParent!.getBoundingClientRect();
+
+    let xRatio = 0.5;
+    if (direction === "left") xRatio = 0.25;
+    if (direction === "right") xRatio = 0.75;
+
+    const targetX =
+      ((goal.left - field.left + goal.width * xRatio) / field.width) * 100;
+
+    const targetY =
+      ((goal.top - field.top + goal.height * 0.6) / field.height) * 100;
 
     ballPosition.value = { x: targetX, y: targetY };
     setTimeout(resolve, 800);
@@ -151,23 +151,32 @@ const accuracy = computed(() => {
   return Math.round((goalsScored.value / totalShots.value) * 100);
 });
 
-// posisi gk - menggunakan posisi tetap yang sama
+// posisi gk
 const getGoalkeeperPositionClass = () => {
-  const position = POSITIONS[goalkeeperPosition.value];
-  return `left-[${position}%] -translate-x-1/2`;
+  if (goalkeeperPosition.value === "left") return "left-[25%] -translate-x-1/2";
+  if (goalkeeperPosition.value === "right")
+    return "left-[75%] -translate-x-1/2";
+  return "left-1/2 -translate-x-1/2";
 };
-
-// animasi gk
+//animasi gk
 const getKeeperAnimationClass = () => {
   if (keeperState.value === "left") return "keeper-dive-left";
   if (keeperState.value === "right") return "keeper-dive-right";
   if (keeperState.value === "center") return "keeper-dive-center";
-  return "";
+};
+const isSavedByKeeper = (
+  shotX: number,
+  keeper: "left" | "center" | "right",
+) => {
+  if (keeper === "left") return shotX < 35;
+  if (keeper === "right") return shotX > 65;
+  return shotX >= 40 && shotX <= 60;
 };
 </script>
 
 <template>
-  <div class="relative min-h-screen bg-gradient-to-r from-black/95 via-black/70 to-transparent p-5 overflow-hidden">
+
+  <div class="relative min-h-screen bg-gradient-to-br from-[var(--gold-main)] via-[var(--gold-light)] to-[var(--gold-dark)] p-5 overflow-hidden">
     <img
       src="/du-universal.png"
       class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0"
@@ -177,9 +186,7 @@ const getKeeperAnimationClass = () => {
       <!-- Menu State -->
       <div v-if="gameState === 'menu'" class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative z-10 max-w-4xl mx-auto">
         <div class="text-center">
-          <h1 class="text-4xl md:text-6xl font-bold mb-3
-                    bg-gradient-to-r from-[var(--gold-main)] to-[var(--gold-dark)]
-                    bg-clip-text text-transparent">
+          <h1 class="text-4xl md:text-6xl font-bold mb-3 text-[var(--gold-main)] bg-clip-text text-transparent">
             ⚽ Penalty Shootout
           </h1>
           <p class="text-lg md:text-xl text-gray-600 mb-8">
@@ -240,7 +247,7 @@ const getKeeperAnimationClass = () => {
       <!-- Playing State -->
       <div
         v-else-if="gameState === 'playing'"
-        class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 max-w-4xl mx-auto"
+        class="bg-white rounded-3xl p-6 md:p-8 shadow-2xl"
       >
         <!-- Score Board -->
         <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-50 rounded-xl p-5">
@@ -264,9 +271,8 @@ const getKeeperAnimationClass = () => {
           </div>
         </div>
 
-        <!-- lapangan -->
+        <!-- Football Field -->
         <div
-          ref="fieldRef"
           class="relative h-96 md:h-[500px] bg-gradient-to-b from-green-400 to-green-500 rounded-xl mb-8 overflow-hidden"
         >
           <img
@@ -274,10 +280,10 @@ const getKeeperAnimationClass = () => {
             alt="Dewa United"
             class="absolute inset-0 m-auto w-56 md:w-72 opacity-15 pointer-events-none"
           />
-          <!-- gawang -->
+          <!-- Goal -->
           <div
             ref="goalRef"
-            class="absolute top-8 left-1/2 -translate-x-1/2 w-72 md:w-96 h-36 md:h-44 border-4 border-white border-t-0 bg-black/10"
+            class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 border-4 border-white border-t-0 bg-black/10 rotate-180"
           >
             <div
               class="w-full h-full opacity-30"
@@ -299,22 +305,19 @@ const getKeeperAnimationClass = () => {
                   );
               "
             ></div>
-          </div>
 
-          <!-- goalkeeper - di depan bawah gawang -->
-          <div
-            class="absolute text-6xl md:text-7xl transition-all duration-300 ease-out drop-shadow-2xl z-10"
-            :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
-            :style="{
-              bottom: '20%'
-            }"
-          >
-            🧤
+            <!-- Goalkeeper -->
+            <div
+              class="absolute bottom-0 translate-y-1/2 text-5xl transition-all duration-300 ease-out"
+              :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
+            >
+              🧤
+            </div>
           </div>
 
           <!-- Ball -->
           <div
-            class="absolute text-5xl md:text-6xl transition-all duration-700 ease-out z-20"
+            class="absolute text-4xl md:text-5xl transition-all duration-700 ease-out"
             :class="{ 'animate-spin': isKicking }"
             :style="{
               left: `${ballPosition.x}%`,
@@ -327,7 +330,7 @@ const getKeeperAnimationClass = () => {
 
           <!-- Penalty Spot -->
           <div
-            class="absolute bottom-16 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg"
+            class="absolute bottom-12 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full"
           ></div>
         </div>
 
@@ -360,7 +363,7 @@ const getKeeperAnimationClass = () => {
       <!-- Result State -->
       <div
         v-else-if="gameState === 'result'"
-        class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative z-10"
+        class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl"
       >
         <div v-if="gameResult" class="text-center">
           <h1 class="text-4xl md:text-5xl font-bold mb-8 text-purple-600">
@@ -456,15 +459,14 @@ const getKeeperAnimationClass = () => {
     </div>
   </div>
 </template>
-
 <style scoped>
 .keeper-dive-left {
-  transform: translateX(-60px) rotate(-25deg);
+  transform: translateX(-40px) rotate(-20deg);
 }
 .keeper-dive-right {
-  transform: translateX(60px) rotate(25deg);
+  transform: translateX(40px) rotate(20deg);
 }
 .keeper-dive-center {
-  transform: translateY(-30px) scale(1.1);
+  transform: translateY(-20px);
 }
 </style>
