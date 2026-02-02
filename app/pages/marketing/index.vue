@@ -133,10 +133,18 @@ const solutions = [
     class="scroll-mt-24 bg-black py-24 px-6 sm:px-10 md:px-20"
   >
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-left" data-aos-delay="300">
+      <h2
+        class="text-3xl md:text-4xl font-bold"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
         Integrated Marketing Solutions
       </h2>
-      <p class="mt-4 text-neutral-400 max-w-2xl mx-auto" data-aos="fade-right" data-aos-delay="500">
+      <p
+        class="mt-4 text-neutral-400 max-w-2xl mx-auto"
+        data-aos="fade-right"
+        data-aos-delay="500"
+      >
         A full spectrum of strategic marketing solutions to support your brand’s
         growth.
       </p>
@@ -144,10 +152,10 @@ const solutions = [
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <div
-        v-for="item,index in solutions"
+        v-for="(item, index) in solutions"
         :key="item.title"
         data-aos="fade-up"
-        :data-aos-delay="index*200"
+        :data-aos-delay="index * 200"
         class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-[var(--gold-main)]/40 transition"
       >
         <h3 class="text-xl font-semibold mb-3">
@@ -166,16 +174,28 @@ const solutions = [
   >
     <div class="grid md:grid-cols-2 gap-16 items-center">
       <div>
-        <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up" data-aos-delay="300">
+        <h2
+          class="text-3xl md:text-4xl font-bold"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
           Why Brands Choose Dewa United
         </h2>
-        <p class="mt-4 text-neutral-400" data-aos="fade-up" data-aos-delay="500">
+        <p
+          class="mt-4 text-neutral-400"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        >
           We combine strategic thinking, strong brand assets, and professional
           execution.
         </p>
       </div>
 
-      <ul class="space-y-4 text-neutral-200" data-aos="fade-up" data-aos-delay="700">
+      <ul
+        class="space-y-4 text-neutral-200"
+        data-aos="fade-up"
+        data-aos-delay="700"
+      >
         <li class="flex items-center gap-3">
           <span class="w-2 h-2 rounded-full bg-[var(--gold-main)]" />
           Strong National Brand Presence
@@ -208,11 +228,19 @@ const solutions = [
       <div class="text-center mb-16">
         <span class="badge-gold" data-aos="fade-up">CONTACT US</span>
 
-        <h2 class="mt-6 text-3xl md:text-4xl font-bold" data-aos="fade-left" data-aos-delay="300">
+        <h2
+          class="mt-6 text-3xl md:text-4xl font-bold"
+          data-aos="fade-left"
+          data-aos-delay="300"
+        >
           Let’s Build Something Powerful Together
         </h2>
 
-        <p class="mt-4 text-neutral-400 max-w-2xl mx-auto font-default" data-aos="fade-right" data-aos-delay="500">
+        <p
+          class="mt-4 text-neutral-400 max-w-2xl mx-auto font-default"
+          data-aos="fade-right"
+          data-aos-delay="500"
+        >
           Reach out to our marketing team to explore partnership opportunities,
           campaign collaboration, and strategic solutions.
         </p>
@@ -220,48 +248,136 @@ const solutions = [
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- EMAIL -->
-        <div class="card-gold flex flex-col items-center text-center gap-4" data-aos="fade-up" data-aos-delay="700">
+
+        <a href="mailto:marketing@dewaunited.com" class="block">
           <div
-            class="w-14 h-14 rounded-full bg-[rgba(225,182,98,0.15)] flex items-center justify-center"
+            class="card-gold flex flex-col items-center text-center gap-4 cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+            data-aos="fade-up"
+            data-aos-delay="700"
           >
-            ✉️
+            <div
+              class="w-14 h-14 flex items-center justify-center hover:scale-105 transition-transform duration-300"
+            >
+              <svg
+                width="800px"
+                height="800px"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 11.9556C2 8.47078 2 6.7284 2.67818 5.39739C3.27473 4.22661 4.22661 3.27473 5.39739 2.67818C6.7284 2 8.47078 2 11.9556 2H20.0444C23.5292 2 25.2716 2 26.6026 2.67818C27.7734 3.27473 28.7253 4.22661 29.3218 5.39739C30 6.7284 30 8.47078 30 11.9556V20.0444C30 23.5292 30 25.2716 29.3218 26.6026C28.7253 27.7734 27.7734 28.7253 26.6026 29.3218C25.2716 30 23.5292 30 20.0444 30H11.9556C8.47078 30 6.7284 30 5.39739 29.3218C4.22661 28.7253 3.27473 27.7734 2.67818 26.6026C2 25.2716 2 23.5292 2 20.0444V11.9556Z"
+                  fill="white"
+                />
+                <path
+                  d="M22.0515 8.52295L16.0644 13.1954L9.94043 8.52295V8.52421L9.94783 8.53053V15.0732L15.9954 19.8466L22.0515 15.2575V8.52295Z"
+                  fill="#EA4335"
+                />
+                <path
+                  d="M23.6231 7.38639L22.0508 8.52292V15.2575L26.9983 11.459V9.17074C26.9983 9.17074 26.3978 5.90258 23.6231 7.38639Z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M22.0508 15.2575V23.9924H25.8428C25.8428 23.9924 26.9219 23.8813 26.9995 22.6513V11.459L22.0508 15.2575Z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M9.94811 24.0001V15.0732L9.94043 15.0669L9.94811 24.0001Z"
+                  fill="#C5221F"
+                />
+                <path
+                  d="M9.94014 8.52404L8.37646 7.39382C5.60179 5.91001 5 9.17692 5 9.17692V11.4651L9.94014 15.0667V8.52404Z"
+                  fill="#C5221F"
+                />
+                <path
+                  d="M9.94043 8.52441V15.0671L9.94811 15.0734V8.53073L9.94043 8.52441Z"
+                  fill="#C5221F"
+                />
+                <path
+                  d="M5 11.4668V22.6591C5.07646 23.8904 6.15673 24.0003 6.15673 24.0003H9.94877L9.94014 15.0671L5 11.4668Z"
+                  fill="#4285F4"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold">Email Us</h3>
+            <p class="text-neutral-400 font-default">
+              For inquiries, proposals, and partnerships
+            </p>
+            <span
+              class="text-[var(--gold-main)] font-default group-hover:underline"
+            >
+              marketing@dewaunited.com
+            </span>
           </div>
-
-          <h3 class="text-xl font-semibold">Email Us</h3>
-
-          <p class="text-neutral-400 font-default">
-            For inquiries, proposals, and partnerships
-          </p>
-
-          <a
-            href="mailto:marketing@dewaunited.com"
-            class="text-[var(--gold-main)] font-default hover:underline"
-          >
-            marketing@dewaunited.com
-          </a>
-        </div>
+        </a>
 
         <!-- PHONE -->
-        <div class="card-gold flex flex-col items-center text-center gap-4" data-aos="fade-up" data-aos-delay="900">
+        <a href="tel:+6281234567890" class="block">
           <div
-            class="w-14 h-14 rounded-full bg-[rgba(225,182,98,0.15)] flex items-center justify-center"
+            class="card-gold flex flex-col items-center text-center gap-4 cursor-pointer"
+            data-aos="fade-up"
+            data-aos-delay="900"
           >
-            📞
+            <div
+              class="w-14 h-14 flex items-center justify-center hover:scale-105 transition-transform duration-300"
+            >
+              <svg
+                width="800px"
+                height="800px"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M16 31C23.732 31 30 24.732 30 17C30 9.26801 23.732 3 16 3C8.26801 3 2 9.26801 2 17C2 19.5109 2.661 21.8674 3.81847 23.905L2 31L9.31486 29.3038C11.3014 30.3854 13.5789 31 16 31ZM16 28.8462C22.5425 28.8462 27.8462 23.5425 27.8462 17C27.8462 10.4576 22.5425 5.15385 16 5.15385C9.45755 5.15385 4.15385 10.4576 4.15385 17C4.15385 19.5261 4.9445 21.8675 6.29184 23.7902L5.23077 27.7692L9.27993 26.7569C11.1894 28.0746 13.5046 28.8462 16 28.8462Z"
+                  fill="#BFC8D0"
+                />
+                <path
+                  d="M28 16C28 22.6274 22.6274 28 16 28C13.4722 28 11.1269 27.2184 9.19266 25.8837L5.09091 26.9091L6.16576 22.8784C4.80092 20.9307 4 18.5589 4 16C4 9.37258 9.37258 4 16 4C22.6274 4 28 9.37258 28 16Z"
+                  fill="url(#paint0_linear_87_7264)"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 18.5109 2.661 20.8674 3.81847 22.905L2 30L9.31486 28.3038C11.3014 29.3854 13.5789 30 16 30ZM16 27.8462C22.5425 27.8462 27.8462 22.5425 27.8462 16C27.8462 9.45755 22.5425 4.15385 16 4.15385C9.45755 4.15385 4.15385 9.45755 4.15385 16C4.15385 18.5261 4.9445 20.8675 6.29184 22.7902L5.23077 26.7692L9.27993 25.7569C11.1894 27.0746 13.5046 27.8462 16 27.8462Z"
+                  fill="white"
+                />
+                <path
+                  d="M12.5 9.49989C12.1672 8.83131 11.6565 8.8905 11.1407 8.8905C10.2188 8.8905 8.78125 9.99478 8.78125 12.05C8.78125 13.7343 9.52345 15.578 12.0244 18.3361C14.438 20.9979 17.6094 22.3748 20.2422 22.3279C22.875 22.2811 23.4167 20.0154 23.4167 19.2503C23.4167 18.9112 23.2062 18.742 23.0613 18.696C22.1641 18.2654 20.5093 17.4631 20.1328 17.3124C19.7563 17.1617 19.5597 17.3656 19.4375 17.4765C19.0961 17.8018 18.4193 18.7608 18.1875 18.9765C17.9558 19.1922 17.6103 19.083 17.4665 19.0015C16.9374 18.7892 15.5029 18.1511 14.3595 17.0426C12.9453 15.6718 12.8623 15.2001 12.5959 14.7803C12.3828 14.4444 12.5392 14.2384 12.6172 14.1483C12.9219 13.7968 13.3426 13.254 13.5313 12.9843C13.7199 12.7145 13.5702 12.305 13.4803 12.05C13.0938 10.953 12.7663 10.0347 12.5 9.49989Z"
+                  fill="white"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_87_7264"
+                    x1="26.5"
+                    y1="7"
+                    x2="4"
+                    y2="28"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#5BD066" />
+                    <stop offset="1" stop-color="#27B43E" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <h3 class="text-xl font-semibold">Call Us</h3>
+
+            <p class="text-neutral-400 font-default">
+              Speak directly with our marketing representative
+            </p>
+
+            <p
+              href="tel:+6281234567890"
+              class="text-[var(--gold-main)] font-default hover:underline"
+            >
+              +62 812-345-67890
+            </p>
           </div>
-
-          <h3 class="text-xl font-semibold">Call Us</h3>
-
-          <p class="text-neutral-400 font-default">
-            Speak directly with our marketing representative
-          </p>
-
-          <a
-            href="tel:+6281234567890"
-            class="text-[var(--gold-main)] font-default hover:underline"
-          >
-            +62 812-xxx-xxxx
-          </a>
-        </div>
+        </a>
       </div>
 
       <!-- CTA -->

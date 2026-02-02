@@ -247,13 +247,11 @@ onUnmounted(() => {
 
             <div>
               <p
-                class="text-sm font-medium text-white hover:text-[var(--gold-main)] transition"
+                class="text-sm font-medium hover:text-[var(--gold-main)] transition"
               >
                 Email
               </p>
-              <p
-                class="text-xs text-white/70 hover:text-[var(--gold-main)] transition"
-              >
+              <p class="text-xs hover:text-[var(--gold-main)] transition">
                 store@dewaunited.com
               </p>
             </div>
@@ -261,7 +259,7 @@ onUnmounted(() => {
           <a
             href="https://wa.me/6281234567890"
             target="_blank"
-            class="flex items-center gap-4 rounded-xl px-4 py-3 transition-all hover:bg-white/10 hover:translate-x-1"
+            class="flex items-center gap-4 rounded-xl px-4 py-3 transition-all hover:bg-white/10 hover:translate-x-1 text-white hover:text-[var(--gold-main)] transition"
           >
             <div
               class="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20"
@@ -282,15 +280,13 @@ onUnmounted(() => {
               </svg>
             </div>
 
-            <div>
+            <div class="">
               <p
-                class="text-sm font-medium text-white hover:text-[var(--gold-main)] transition"
+                class="text-sm font-medium hover:text-[var(--gold-main)] transition"
               >
                 WhatsApp
               </p>
-              <p
-                class="text-xs text-white/70 hover:text-[var(--gold-main)] transition"
-              >
+              <p class="text-xs hover:text-[var(--gold-main)] transition">
                 +62 812-3456-7890
               </p>
             </div>
