@@ -103,7 +103,7 @@ const animateBall = (direction: "left" | "center" | "right") => {
   return new Promise<void>((resolve) => {
     // Gunakan posisi X yang sama dengan goalkeeper
     const targetX = POSITIONS[direction];
-    const targetY = 15; // Posisi Y di dalam gawang (lebih tinggi karena gawang sekarang normal)
+    const targetY = 10; // Posisi Y di dalam gawang (lebih tinggi)
 
     ballPosition.value = { x: targetX, y: targetY };
     setTimeout(resolve, 800);
@@ -277,7 +277,7 @@ const getKeeperAnimationClass = () => {
           <!-- gawang -->
           <div
             ref="goalRef"
-            class="absolute top-5 left-1/2 -translate-x-1/2 w-64 md:w-80 h-32 md:h-40 border-4 border-white border-t-0 bg-black/10"
+            class="absolute top-8 left-1/2 -translate-x-1/2 w-72 md:w-96 h-36 md:h-44 border-4 border-white border-t-0 bg-black/10"
           >
             <div
               class="w-full h-full opacity-30"
@@ -301,12 +301,12 @@ const getKeeperAnimationClass = () => {
             ></div>
           </div>
 
-          <!-- goalkeeper - di bawah gawang -->
+          <!-- goalkeeper - di depan bawah gawang -->
           <div
-            class="absolute text-5xl transition-all duration-300 ease-out drop-shadow-lg z-10"
+            class="absolute text-6xl md:text-7xl transition-all duration-300 ease-out drop-shadow-2xl z-10"
             :class="[getGoalkeeperPositionClass(), getKeeperAnimationClass()]"
             :style="{
-              top: '185px'
+              bottom: '20%'
             }"
           >
             🧤
@@ -314,7 +314,7 @@ const getKeeperAnimationClass = () => {
 
           <!-- Ball -->
           <div
-            class="absolute text-4xl md:text-5xl transition-all duration-700 ease-out z-20"
+            class="absolute text-5xl md:text-6xl transition-all duration-700 ease-out z-20"
             :class="{ 'animate-spin': isKicking }"
             :style="{
               left: `${ballPosition.x}%`,
@@ -327,7 +327,7 @@ const getKeeperAnimationClass = () => {
 
           <!-- Penalty Spot -->
           <div
-            class="absolute bottom-12 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full"
+            class="absolute bottom-16 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg"
           ></div>
         </div>
 
