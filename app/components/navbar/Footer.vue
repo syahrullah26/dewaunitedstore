@@ -198,7 +198,7 @@ onUnmounted(() => {
         <div class="space-y-4">
           <a
             href="mailto:store@dewaunited.com"
-            class="flex items-center gap-4 rounded-xl px-4 py-3 transition-all hover:bg-white/10 hover:translate-x-1"
+            class="flex items-center gap-4 rounded-xl px-4 py-3 transition-all hover:bg-white/10 hover:translate-x-1 hover:text-[var(--gold-main)] transition"
           >
             <div
               class="flex h-10 w-10 items-center justify-center rounded-full bg-red-700/20"
@@ -246,8 +246,16 @@ onUnmounted(() => {
             </div>
 
             <div>
-              <p class="text-sm font-medium text-white">Email</p>
-              <p class="text-xs text-white/70">store@dewaunited.com</p>
+              <p
+                class="text-sm font-medium text-white hover:text-[var(--gold-main)] transition"
+              >
+                Email
+              </p>
+              <p
+                class="text-xs text-white/70 hover:text-[var(--gold-main)] transition"
+              >
+                store@dewaunited.com
+              </p>
             </div>
           </a>
           <a
@@ -275,8 +283,16 @@ onUnmounted(() => {
             </div>
 
             <div>
-              <p class="text-sm font-medium text-white">WhatsApp</p>
-              <p class="text-xs text-white/70">+62 812-3456-7890</p>
+              <p
+                class="text-sm font-medium text-white hover:text-[var(--gold-main)] transition"
+              >
+                WhatsApp
+              </p>
+              <p
+                class="text-xs text-white/70 hover:text-[var(--gold-main)] transition"
+              >
+                +62 812-3456-7890
+              </p>
             </div>
           </a>
         </div>
@@ -287,7 +303,11 @@ onUnmounted(() => {
           to="/store/locations"
           class="block mb-6 cursor-pointer hover:text-white hover:underline hover:font-bold transition"
         >
-          <h3 class="text-lg font-bold mb-4">Store Locations</h3>
+          <h3
+            class="text-lg font-bold mb-4 hover:text-[var(--gold-main)] transition"
+          >
+            Store Locations
+          </h3>
         </NuxtLink>
         <ul
           class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 text-gray-300 text-sm"
@@ -298,10 +318,17 @@ onUnmounted(() => {
             class="flex items-start gap-2 hover:text-white transition"
           >
             <i class="fas fa-map-marker-alt mt-1 text-red-600"></i>
-            <a :href="store.gmap_link" target="_blank" class="hover:underline">
+            <a
+              :href="store.gmap_link"
+              target="_blank"
+              class="hover:underline hover:font-medium hover:text-[var(--gold-main)] transition"
+            >
               <span class="font-medium">{{ store.title }}</span
               ><br />
-              <span class="text-xs text-gray-400">{{ store.address }}</span>
+              <span
+                class="text-xs text-gray-400 hover:text-[var(--gold-dark)] transition"
+                >{{ store.address }}</span
+              >
             </a>
           </li>
         </ul>

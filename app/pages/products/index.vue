@@ -181,12 +181,12 @@ useSeoMeta({
 
           <div class="p-5 space-y-2">
             <h3
-              class="font-semibold text-sm leading-snug truncate group-hover:text-[var(--gold-main)] transition"
+              class="font-semibold text-xl leading-snug truncate group-hover:text-[var(--gold-main)] transition"
             >
               {{ product.name }}
             </h3>
 
-            <p class="text-sm font-medium text-zinc-300">
+            <p class="text-md font-medium text-zinc-300">
               {{ formatRupiah(product.price) }}
             </p>
           </div>
