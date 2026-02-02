@@ -175,9 +175,8 @@ const isSavedByKeeper = (
 </script>
 
 <template>
-  <div
-    class="relative min-h-screen bg-gradient-to-br from-[var(--gold-main)] via-[var(--gold-light)] to-[var(--gold-dark)] p-5 overflow-hidden"
-  >
+
+  <div class="relative min-h-screen bg-gradient-to-br from-[var(--gold-main)] via-[var(--gold-light)] to-[var(--gold-dark)] p-5 overflow-hidden">
     <img
       src="/du-universal.png"
       class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0"
@@ -187,9 +186,7 @@ const isSavedByKeeper = (
       <!-- Menu State -->
       <div v-if="gameState === 'menu'" class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl relative z-10 max-w-4xl mx-auto">
         <div class="text-center">
-          <h1
-            class="text-4xl md:text-6xl font-bold mb-3 text-[var(--gold-main)] bg-clip-text text-transparent"
-          >
+          <h1 class="text-4xl md:text-6xl font-bold mb-3 text-[var(--gold-main)] bg-clip-text text-transparent">
             ⚽ Penalty Shootout
           </h1>
           <p class="text-lg md:text-xl text-gray-600 mb-8">
@@ -231,8 +228,8 @@ const isSavedByKeeper = (
           </button>
 
           <div class="flex flex-wrap justify-center gap-5 mt-8">
-            <NuxtLink
-              to="/game/penalty/leaderboard"
+            <NuxtLink 
+              to="/game/penalty/leaderboard" 
               class="text-black font-semibold hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors"
             >
               📊 Lihat Leaderboard
