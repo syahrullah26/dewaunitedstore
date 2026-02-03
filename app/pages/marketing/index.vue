@@ -30,6 +30,67 @@ const solutions = [
     desc: "Brand exposure through merchandise, retail, and physical touchpoints.",
   },
 ];
+
+const teams = [
+  {
+    name: "Dewa United Banten FC",
+    league: "Liga 1",
+    description:
+      "Competing at the highest level of Indonesian football with discipline, intensity, and a winning mentality.",
+    image: "/dewa-united.png",
+    achievments: [
+      "3rd place Piala Presiden 2025",
+      "2nd Place Liga 1 Indonesia 2024/2025",
+      "Promoted to Liga 1 Indonesia Professional League 2022",
+      "Qualified for AFC Challenge League 2025/2026",
+    ],
+  },
+  {
+    name: "Dewa United Banten BC",
+    league: "IBL",
+    description:
+      "A dominant presence in Indonesian basketball with relentless pace, athleticism, and modern playstyle.",
+    image: "/du-basketball.png",
+    achievments: [
+      "2nd Place IBL All Indonesian Season 2025",
+      "1st Place IBL Season 2025",
+      "3rd Place IBL All Indonesian Season 2024",
+      "4th Place IBL Season 2024",
+      "4th Place IBL Season 2023",
+      "4th Place IBL Season 2021",
+      "7th Place IBL Season 2022",
+      "4th Place Indonesia Cup 2022",
+    ],
+  },
+  {
+    name: "Dewa United Esports",
+    league: "Pro Team",
+    description:
+      "Competing across elite esports titles with massive digital reach, creator-driven content, and youth dominance.",
+    image: "/du-esports.png",
+    achievements: [
+      "5th MPL ID S12",
+      "4th MDL season 6 2022",
+      "4th MPL ID S16",
+      "2nd FFNS 2025 Spring",
+      "3rd FFNS 2025 Fall",
+    ],
+  },
+  {
+    name: "Dewa United Store",
+    league: "Store",
+    description:
+      "Official merchandise store offering a wide range of Dewa United apparel and accessories for fans and supporters.",
+    image: "/du-universal.png",
+    achievements: [""],
+  },
+];
+const normalizedTeams = computed(() =>
+  teams.map((team) => ({
+    ...team,
+    achievements: team.achievements ?? team.achievments ?? [],
+  })),
+);
 </script>
 
 <template>
@@ -94,36 +155,101 @@ const solutions = [
   </section>
 
   <!-- ================= TRUST ================= -->
-  <section class="bg-black py-24 px-6 sm:px-10 md:px-20 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-right">
-      Trusted by Brands & Partners
-    </h2>
-    <p class="mt-4 text-neutral-400 max-w-2xl mx-auto" data-aos="fade-left">
-      We collaborate with brands, partners, and communities to deliver impactful
-      marketing campaigns.
-    </p>
+  <section class="bg-black py-28 px-6 sm:px-10 md:px-20">
+    <div class="text-center max-w-4xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-extrabold uppercase text-white">
+        Our Teams
+      </h2>
+      <p class="mt-5 text-neutral-400">
+        Built to compete. Designed to win. Powered by performance.
+      </p>
+    </div>
 
-    <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 opacity-60">
+    <div class="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-10">
       <div
-        class="h-16 bg-white/10 rounded-xl"
+        v-for="(team, index) in normalizedTeams"
+        :key="team.name"
+        class="group relative bg-zinc-900/70 border border-white/10 rounded-2xl p-7 hover:border-[var(--gold-main)] text-white hover:text-[var(--gold-main)] transition-all duration-300"
         data-aos="fade-up"
-        data-aos-delay="500"
-      />
-      <div
-        class="h-16 bg-white/10 rounded-xl"
-        data-aos="fade-up"
-        data-aos-delay="600"
-      />
-      <div
-        class="h-16 bg-white/10 rounded-xl"
-        data-aos="fade-up"
-        data-aos-delay="700"
-      />
-      <div
-        class="h-16 bg-white/10 rounded-xl"
-        data-aos="fade-up"
-        data-aos-delay="800"
-      />
+        :data-aos-delay="(index + 100) * 100"
+      >
+        <div class="flex items-center justify-between">
+          <span
+            class="text-xs font-bold uppercase tracking-widest text-white/60"
+          >
+            {{
+              team.league === "Pro Team"
+                ? "Esports Division"
+                : team.league === "Store"
+                  ? "Store Division"
+                  : "Sports Division"
+            }}
+          </span>
+          <span
+            class="text-xs px-3 py-1 rounded-full bg-white text-black font-bold"
+          >
+            {{ team.league }}
+          </span>
+        </div>
+        <div
+          class="mt-6 aspect-square bg-zinc-900/70 rounded-xl overflow-hidden"
+        >
+          <img
+            :src="team.image"
+            :alt="team.name"
+            class="w-full h-full object-contain scale-90 group-hover:scale-100 transition"
+          />
+        </div>
+        <h3 class="mt-6 text-2xl font-extrabold uppercase">
+          {{ team.name }}
+        </h3>
+
+        <p class="mt-3 text-sm text-neutral-400">
+          {{ team.description }}
+        </p>
+        <div
+          class="mt-5 h-px w-0 bg-white group-hover:w-full transition-all duration-300"
+        ></div>
+        <!-- achievements -->
+        <div class="mt-6" v-if="team.league !== 'Store'">
+          <h4
+            class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white mb-4"
+          >
+            <span class="w-2 h-2 bg-white rotate-45"></span>
+            Achievements
+          </h4>
+          <!-- achievements -->
+          <div class="mt-6">
+            <ul class="space-y-3 max-h-44 overflow-y-auto pr-2">
+              <li
+                v-for="(achievement, i) in team.achievements"
+                :key="i"
+                class="group/item flex items-start gap-3 text-sm text-neutral-300"
+              >
+                <span
+                  class="mt-1.5 w-2 h-2 rotate-45 bg-white/50 group-hover/item:bg-white transition"
+                ></span>
+
+                <span
+                  class="leading-snug group-hover/item:text-white transition"
+                >
+                  {{ achievement }}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div v-else class="mt-6">
+          <div class="flex justify-center">
+            <a
+              href="https://dewaunitedstore.vercel.app"
+              target="block"
+              class="text-sm font-semibold fke"
+              >Kunjungi Website Store Kami</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
