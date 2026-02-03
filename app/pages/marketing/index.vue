@@ -33,7 +33,7 @@ const solutions = [
 
 const teams = [
   {
-    name: "Dewa United Banten FC",
+    name: "Dewa United Banten Football Club",
     league: "Liga 1",
     description:
       "Competing at the highest level of Indonesian football with discipline, intensity, and a winning mentality.",
@@ -46,7 +46,7 @@ const teams = [
     ],
   },
   {
-    name: "Dewa United Banten BC",
+    name: "Dewa United Banten Basketball Club",
     league: "IBL",
     description:
       "A dominant presence in Indonesian basketball with relentless pace, athleticism, and modern playstyle.",
