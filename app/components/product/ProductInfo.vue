@@ -49,6 +49,10 @@ const handleAddToCart = async () => {
     toast.show(error.message || "Failed to add to cart", "error");
   }
 };
+const hasExternalLinks = computed(() => {
+  const links = props.product.external_links;
+  return links?.shopee || links?.tiktok_shop || links?.tokopedia;
+});
 
 const formatRupiah = (value: number | string) => {
   return `Rp ${Number(value).toLocaleString("id-ID")}`;
@@ -237,53 +241,70 @@ onMounted(() => {
     >
       Add to Cart
     </button>
-    <div v-if="product.external_links?.length !== 0">
+    <div
+      v-if="
+        product.external_links?.shopee ||
+        product.external_links?.tiktok_shop ||
+        product.external_links?.tokopedia
+      "
+    >
       <div class="flex items-center justify-center gap-4 mb-4">
         <div class="flex-1 h-px bg-black"></div>
-        <span>Or Buy On Other Platforms</span>
+        <span class="text-sm uppercase tracking-wider">
+          Or Buy On Other Platforms
+        </span>
         <div class="flex-1 h-px bg-black"></div>
       </div>
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
-        <div class="flex justify-center">
-          <NuxtLink class="block w-full">
-            <button
-              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-orange-400 hover:text-white hover:border-orange-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <Icon
-                icon="simple-icons:shopee"
-                class="w-7 h-7 text-[#EE4D2D] transition-transform hover:scale-110"
-              />
-              Shopee
-            </button>
-          </NuxtLink>
-        </div>
-        <div class="flex justify-center">
-          <NuxtLink class="block w-full">
-            <button
-              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-neutral-800 hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <Icon
-                icon="logos:tiktok-icon"
-                class="w-7 h-7 transition-transform hover:scale-110"
-              />
-              TikTok
-            </button>
-          </NuxtLink>
-        </div>
-        <div class="flex justify-center">
-          <NuxtLink class="block w-full">
-            <button
-              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-green-400 hover:text-white hover:border-green-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <img
-                src="/tokped.png"
-                alt="Tokopedia"
-                class="w-7 h-7 object-contain transition-transform hover:scale-110"
-              />
-              Tokopedia
-            </button>
-          </NuxtLink>
-        </div>
+        <!-- Shopee -->
+        <NuxtLink
+          v-if="product.external_links?.shopee"
+          :to="product.external_links.shopee"
+          target="_blank"
+          class="block w-full"
+        >
+          <button
+            class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-orange-400 hover:text-white hover:border-orange-600 transition"
+          >
+            <Icon icon="simple-icons:shopee" class="w-7 h-7 text-[#EE4D2D]" />
+            Shopee
+          </button>
+        </NuxtLink>
+
+        <!-- TikTok -->
+        <NuxtLink
+          v-if="product.external_links?.tiktok_shop"
+          :to="product.external_links.tiktok_shop"
+          target="_blank"
+          class="block w-full"
+        >
+          <button
+            class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-neutral-800 hover:text-white transition"
+          >
+            <Icon icon="logos:tiktok-icon" class="w-7 h-7" />
+            TikTok
+          </button>
+        </NuxtLink>
+
+        <!-- Tokopedia -->
+        <NuxtLink
+          v-if="product.external_links?.tokopedia"
+          :to="product.external_links.tokopedia"
+          target="_blank"
+          class="block w-full"
+        >
+          <button
+            class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-green-400 hover:text-white hover:border-green-600 transition"
+          >
+            <img
+              src="/tokped.png"
+              alt="Tokopedia"
+              class="w-7 h-7 object-contain"
+            />
+            Tokopedia
+          </button>
+        </NuxtLink>
       </div>
     </div>
 

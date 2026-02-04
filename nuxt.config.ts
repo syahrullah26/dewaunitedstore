@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   nitro: {
-    preset: 'vercel'
+    preset: "vercel",
   },
 
   css: ["~/assets/css/global.css", "~/components/index/hero/hero-fan.css"],
@@ -47,10 +47,10 @@ export default defineNuxtConfig({
       ],
       meta: [
         {
-          name: "description",
+          name: "Dewa United Store",
           content: "Official Dewa United Merchandise Store",
         },
       ],
     },
   },
-})
+});

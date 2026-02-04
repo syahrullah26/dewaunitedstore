@@ -79,7 +79,11 @@ export interface Product {
   lifestyle_images: string[];
 
   related_products: RelatedProduct[];
-  external_links: string[] | null;
+  external_links?: {
+    shopee?: string;
+    tokopedia?: string;
+    tiktok_shop?: string;
+  };
 
   is_active: boolean;
   created_at: string;
