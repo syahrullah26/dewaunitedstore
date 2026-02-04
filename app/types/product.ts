@@ -79,6 +79,7 @@ export interface Product {
   lifestyle_images: string[];
 
   related_products: RelatedProduct[];
+  external_links: string[] | null;
 
   is_active: boolean;
   created_at: string;

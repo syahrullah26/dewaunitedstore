@@ -2,6 +2,7 @@
 import type { Product } from "~/types/product";
 import { useCartStore } from "~/stores/cart";
 import { useToastStore } from "~/stores/toast";
+import { Icon } from "@iconify/vue";
 
 const props = defineProps<{
   product: Product;
@@ -221,9 +222,7 @@ onMounted(() => {
 
       <button
         @click="increaseQty"
-        :disabled="
-          qtyLoading || cartItem.quantity >= cartItem.stock_available
-        "
+        :disabled="qtyLoading || cartItem.quantity >= cartItem.stock_available"
         class="text-xl px-4 disabled:opacity-30 disabled:cursor-not-allowed"
       >
         +
@@ -238,6 +237,55 @@ onMounted(() => {
     >
       Add to Cart
     </button>
+    <div v-if="product.external_links?.length !== 0">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="flex-1 h-px bg-black"></div>
+        <span>Or Buy On Other Platforms</span>
+        <div class="flex-1 h-px bg-black"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
+        <div class="flex justify-center">
+          <NuxtLink class="block w-full">
+            <button
+              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-orange-400 hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <Icon
+                icon="simple-icons:shopee"
+                class="w-7 h-7 text-[#EE4D2D] transition-transform hover:scale-110"
+              />
+              Shopee
+            </button>
+          </NuxtLink>
+        </div>
+        <div class="flex justify-center">
+          <NuxtLink class="block w-full">
+            <button
+              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-neutral-800 hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <Icon
+                icon="logos:tiktok-icon"
+                class="w-7 h-7 transition-transform hover:scale-110"
+              />
+              TikTok
+            </button>
+          </NuxtLink>
+        </div>
+        <div class="flex justify-center">
+          <NuxtLink class="block w-full">
+            <button
+              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-green-400 hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <img
+                src="/tokped.png"
+                alt="Tokopedia"
+                class="w-7 h-7 object-contain transition-transform hover:scale-110"
+              />
+              Tokopedia
+            </button>
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
 
     <div v-if="product.badges?.length" class="flex flex-wrap gap-2">
       <span
