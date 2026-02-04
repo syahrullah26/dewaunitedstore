@@ -88,8 +88,7 @@ const stores = ref([
         data-aos="fade-up"
         data-aos-delay="400"
       >
-        Temukan lokasi store Dewa United di seluruh Indonesia, lengkap dengan
-        foto dan petunjuk peta interaktif.
+        Temukan lokasi store Dewa United.
       </p>
     </section>
 

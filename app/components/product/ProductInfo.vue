@@ -247,7 +247,7 @@ onMounted(() => {
         <div class="flex justify-center">
           <NuxtLink class="block w-full">
             <button
-              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-orange-400 hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-orange-400 hover:text-white hover:border-orange-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Icon
                 icon="simple-icons:shopee"
@@ -273,7 +273,7 @@ onMounted(() => {
         <div class="flex justify-center">
           <NuxtLink class="block w-full">
             <button
-              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-green-400 hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              class="w-full flex items-center justify-center gap-x-2 text-black rounded-sm border border-black py-4 text-sm tracking-wider uppercase font-medium hover:bg-green-400 hover:text-white hover:border-green-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <img
                 src="/tokped.png"
