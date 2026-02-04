@@ -111,7 +111,7 @@ useSeoMeta({
           @click="activeCategory = c"
           class="px-4 py-2 rounded-full border border-white/20 text-sm hover:border-[var(--gold-main)]"
         >
-          {{ c.toUpperCase() }}
+          {{ fullCategory(c).toUpperCase() }}
         </button>
       </div>
     </div>
